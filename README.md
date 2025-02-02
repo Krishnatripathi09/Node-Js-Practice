@@ -11,7 +11,8 @@ Where-ever there is JS there is also a JS Engine to Run the Code.
 
 For eg: Google Chrome ---> v8
 Firefox ---> SpiderMonkey
-Safari ---> JavaScriptCore
+Safari ----> JavaScriptCore
+Edge ----> Chakra 
 So all these browser's have there own JS Engine to Execute JS Code.
 
 But after starting the development he decided to drop the idea of development with SpiderMonkey and then he started the Development with chrome's JS (v8) Engine and He never looked Back.
@@ -48,7 +49,35 @@ Node JS that we used.
 
 For Eg: When a client using  Internet write's Google.com and Hit's enter in Browser So Now Every Domain will Map to an IP (112.625.123.8) address of the server where that site is hosted. So now this IP points to the server and server will serve the info which client has Requested.
 
+## CHROME JS Engine(V8)
+- Chrome's JavaScript engine is called V8. It's a high-performance engine that compiles JavaScript And it is written in C++.
+To Confirm this go-to Browser and Search __v8 Github__ if you click on the first link of v8 ( https://github.com/v8/v8 )
+and when you scroll down to Language Section you will that 78% of code is written in C++ for JS Engine. And Other Languages are also there like JS itself pyhton TypeScript etc.
+![Languages Used to Write V8 Engine ](image.png)
+We can also find the Reference for this at v8 Engines Official Website (https://v8.dev/)
+***V8 can be embedded in Any C++ Application*** - So the creator of Node just embedded this v8 engine into a c++ Application and we call it Node Js.
 
+![JS Engine Diagram](Js-Engine.jpeg)
+
+Node Js has V8 Engine + Other __SuperPowers__(will continue Below later) which are API's On server.So V8 Engine's only Job is to execute JS on server. But to get more Features Node JS has other powers along with v8 which is why it's called JS RunTime.
+
+![Lnaguages used in Node Js](image-1.png)
+
+## Why v8 is a C++ Code.
+Our Compouters Understand's Binary Code (0 and 1's) and on top of Binary code we have Assembly Code and on Top of Assembly code we have Machine Code and on Top of Machine Code we have High Level Code (C++ etc.) On Top of high level language we have JS. so this JS engine takes this JS code and converts it into Machine Code (which is also known as low Level Code).
+![Machine Code](image-2.png) 
+
+ And this is the JOB of our JS engine to convert the Code into Machine Understandable Code :
+ ![V8 Engine Conversion Flow](image-3.png)
+
+If we go-to Repository of Node we will find v8 as an Dependency of Node. (https://github.com/nodejs/node/tree/main/deps/v8)
+
+
+## ECMA Script -->
+- ECMA Script is a Standard for JavaScript. It is a specification that defines the syntax and semantics of the JavaScript language. It is maintained by the ECMA International organization.It Basically defines the Rules that JS syntax uses. 
+__For Eg__: If we say that (===) operator means strictly equal to operator so this rule was made by ECMA Script Standard Organizantion.
+And Js Engine Follows these Standards while executing the code.
+[ECMA SCRIPT Official Documentation Site](https://tc39.es/ecma262/)
 
 ## NODE - JS  Practice From Basics
 
