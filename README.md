@@ -204,6 +204,31 @@ so while exporting we can also write like
 
 
 
+# Exporting a folder as Module 
+We can also export a folder as a module for eg: we have a folder called calculate and inside that we have 2 functions multiply and sum 
+and which we are exporting and then importing separately in our app.js but we can create a __index.js__ file in our calculate folder 
+and inside that we can import our sum and multiply functions from there files.
+And then we can export them as from index.js file as One 
+for eg: 
+const { calculateSum } = require("./sum");
+const { calculateMultiply } = require("./multiply");
+
+module.exports = { calculateSum, calculateMultiply };
+
+Here we have imported calculateSum, and calculateMultiply from there files and then we have exported them as a centralized export
+
+Similarly we can import them in our App.js directly as folder 
+for eg: const { x, calculateSum, calculateMultiply } = require("./calculate");
+
+And then we can directly use them.
+var a = 10;
+var b = 20;
+calculateMultiply(a, b);
+
+calculateSum(a, b);
+console.log(x);
+
+And like this we can import a folder as a module .
 ## NODE - JS  Practice From Basics
 
 Created a Node Js Server which listens on port (3000)
