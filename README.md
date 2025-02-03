@@ -114,9 +114,65 @@ Window,this,self,frames all these keywords refer to Global Object in Browser's.
 __globalThis__ Points to Global Object in all the Environments(Node JS, Chrome,Safari,Edge.)As different Environments had different keywords which point to global Objet in different environments. In 2020 ECMA Finalized __globalThis__ as the Object which will refer to global Object in all the Envrionments.
 
 # Node.js Modules 
-Any piece of code written in a separate file is a module.Each file in Node.js acts as a module by default. To enable interaction between modules, we use module.exports and require() (CommonJS) or export and import (ES Modules) for exporting and importing functionality.
+Any piece of code written in a separate file is a module.Each file in Node.js acts as a module by default. To enable interaction between modules, we use module.exports and __require()__ (CommonJS) or export and import (ES Modules) for exporting and importing functionality.
 To make two modules work together, we use module.exports to expose functionality and require (CommonJS) or import (ES Modules) to use them in other files.
 
+require function is available to us anywhere in our Node Js Code. Whenever we run any program in Node Js require is always there just like global is always there similarly require is also there.So we can just require any file/module into another.
+
+# Node.js Modules System
+We can-not access private variables or functions which are there in a module in any other without the module in which they are present exporting them. 
+Modules protects their variables and functions from leaking.So to access any function or variables into another module we cannot just require 
+them in another file and use them. To use them into another module we have to first export our variables and functions.
+For eg: In our sum.js we have a function to calculate the sum of 2 numbers but we cannot import the file sum.js in our app.js
+and use calcuolateSum function directly instead to use them first we have to export them in our sum module then we can import them in our
+app.js file
+For eg:
+function calculateSum(a,b){
+    const sum =a+b;
+console.log(sum)
+}
+
+module.exports =calculateSum; ***First we have to export the function calculateSum in our sum.js file then we have to import it in the file we want to use it  ***
+for eg:- 
+const calculateSum =require('./sum.js') //***Here we have imported the function calculate sum in our app.js and then we can use this function to calculate sum in the app.js file ***
+
+
+If we had multiple things to import in our Sum.js file like a variable x and a function calculateSum then we can export it as an Object.
+for eg:-
+var a=120;
+function calculateSum(a,b){
+    const sum =a+b;
+    console.log(sum)
+    }
+module.exports={
+    a:a,
+    calculateSum:calculateSum
+}//***when exporting multiple things at once we can export it as an Object.***
+
+Now again to use this export in our app.js we can import it as 
+const obj = require("./sum.js") ***As we have exported our variables snd functions as an Object we can access them in an Object***
+for Eg:
+***we can use them as***
+obj.calculateSum(a,b) and also 
+obj.a
+
+we can also do console.log(obj.x)
+
+We Can also directly destructure our objects directly while exporting and then we use them without writing Obj
+for eg:- const {calculateSum,x} =require("./sum.js") // imported them directly in our app.js with Object destructuring
+
+adn then we can use them without obj
+calculateSum(a,b) and also 
+we can also do console.log(x)
+
+We can also directly export our function and variables directly withot as a key value Pair.
+module.exports={
+    a
+    calculateSum
+}
+
+while importing a module using requires we can avoid writing the extension for the file as It will assume that it is (.js) file
+for eg: require("./sum") // ***here we do not need to write the extension.***
 
 ## NODE - JS  Practice From Basics
 
