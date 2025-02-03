@@ -228,7 +228,18 @@ calculateMultiply(a, b);
 calculateSum(a, b);
 console.log(x);
 
-And like this we can import a folder as a module .
+And like this we can import a folder as a module .\
+## Importing a json file
+We can also use require to import a json file for eg: we have a data.json file which has data 
+{
+    "name":"Krishna",
+    "age":25,
+    "city":"Pune"
+} 
+
+then we can import it in our App.js file as ***const data = require("./data.json");***
+and we can do __console.log(data)__ to view the data in the file
+
 ## NODE - JS  Practice From Basics
 
 Created a Node Js Server which listens on port (3000)
