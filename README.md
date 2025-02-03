@@ -174,6 +174,36 @@ module.exports={
 while importing a module using requires we can avoid writing the extension for the file as It will assume that it is (.js) file
 for eg: require("./sum") // ***here we do not need to write the extension.***
 
+
+These type Of Import and Export of modules is Known as Common JS Modules(CEJS). There is one more type of import and export which is known as ES Modules
+By default In our app we have commonjs modules in but when we want to use ES Modules we have to create a __package.json__ file and in that we have to specify type as module;
+{
+    type:"module"
+} 
+
+
+then we can use import and export directly instead of using require and module.exports
+for eg: for importing we use
+import {x,calculateSum} from "./sum.js"
+and for exporting we can use export var x=10 or export function (){}
+
+When commonJs requires the modules in a synchronous way means if we require any file then unless and until the file is not loaded it will not move to next file.
+But ES Modules are loaded in an asynchronous way means if we import any file then it will not wait
+for the file to be loaded it will move to next file and it will load the file in the
+background.
+Code in common JS modules Run in Non-strict Mode but in ES modules code runs in Strict Mode.
+
+## Module exports
+while exporting functions and variables in our modules when we write module.expports ={x,calculateSum}
+so here the module.exports is a an empty object and we can check this by using a __console.log(module.exports)__
+and it will return an empty object.
+
+so while exporting we can also write like
+***module.exports.x=x***
+***module.exports.calculateSum=calculateSum***
+
+
+
 ## NODE - JS  Practice From Basics
 
 Created a Node Js Server which listens on port (3000)
