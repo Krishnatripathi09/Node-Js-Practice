@@ -19,13 +19,13 @@ But after starting the development he decided to drop the idea of development wi
 ) and He never looked Back.
 And there was also a company __(Joyent)__ which was also working on something similar so they asked and hired Ryan to work on this Development by funding his Development.
 
-When Ryan has Developed Node JS he had named it Web Js But later he realized it's potential that it is bigger than web so he Re-named it as __Node JS__.
+When Ryan has Developed Node JS he had named it __Web Js__ But later he realized it's potential that it is bigger than web so he Re-named it as __Node JS__.
 
 # Reason Why Node JS Was Created:-
 Initially to create the servers there was this __APACHE__ HTTP Server and other servers and these servers were a blocking Server(***More understanding of this concept below What is Blocing Server etc.*** ).And Ryan Wanted to create a non Blocking server and that's why he created Node JS. The __Advantage__ of Non-Blocking servers is It Can handle multiple Requests With Lesser Number of threads.
 
 # NPM - 
-In 2010 when Node Js was also Being Developed So a Developer from Joyent created NPM which is a package manager for Node. Which is a Registry where we can add a package(for eg: Package for Images,Package for Time and Date,Package of Servers etc.). And all these packages are available on npm and it was very significant step in the success of Node Js. Node Js would not be as successful as it is now without _NPM_(It's Pacakage Manager).
+In 2010 when Node Js was also Being Developed So a Developer from Joyent(Isaac Z. Schlueter) created NPM which is a package manager for Node. It is a Registry where we can add a packages(for eg: Package for Images,Package for Time and Date,Package of Servers etc.). And all these packages are available on npm and it was very significant step in the success of Node Js. Node Js would not be as successful as it is now without _NPM_(It's Pacakage Manager).
 
 # Windows Support :-
 Initially when Node JS was built It was only built for Linux and MacOs and in 2011 the support for Windows also 
@@ -48,28 +48,28 @@ Node JS that we use.
 - A database server (like MongoDB, PostgreSQL) manages databases.
 - A file server stores and shares files over a network
 
-For Eg: When a client using  Internet write's Google.com and Hit's enter in Browser So Now Every Domain will Map to an IP (112.625.123.8) address of the server where that site is hosted. So now this IP points to the server and server will serve the info which client has Requested.
+For Eg: When a client using  Internet write's Google.com and Hit's enter in Browser So Now Every Domain will Map to an IP (112.625.123.8) address of the server where that site is hosted On. So now this IP points to the server and server will serve the info which client has Requested.
 
 # CHROME JS Engine(V8)
 - Chrome's JavaScript engine is called V8. It's a high-performance engine that compiles JavaScript And it is written in C++.
 To Confirm this go-to Browser and Search __v8 Github__ if you click on the first link of v8 ( https://github.com/v8/v8 )
-and when you scroll down to Language Section you will that 78% of code is written in C++ for JS Engine. And Other Languages are also there like JS itself, pyhton, TypeScript etc.
-![Languages Used to Write V8 Engine ](image.png)
+and when you scroll down to Language Section you will see that 78% of code is written in C++ for JS Engine. And Other Languages are also there like JS itself, pyhton, TypeScript etc.
+![Languages Used to Write V8 Engine ](/images/image.png)
 We can also find the Reference for this at v8 Engines Official Website (https://v8.dev/)
 ***V8 can be embedded in Any C++ Application*** - So the creator of Node just embedded this v8 engine into a c++ Application and we call it Node Js.
 
-![JS Engine Diagram](Js-Engine.jpeg)
+![JS Engine Diagram](/images/Js-Engine.jpeg)
 
 Node Js has V8 Engine + Other __SuperPowers__(will continue Below later) which are API's On server.So V8 Engine's only Job is to execute JS on server. But to get more Features Node JS has other powers along with v8 which is why it's called JS RunTime.
 
-![Lnaguages used in Node Js](image-1.png)
+![Lnaguages used in Node Js](/images/image-1.png)
 
 # Why v8 is a C++ Code.
 Our Compouters Understand's Binary Code (0 and 1's) and on top of Binary code we have Assembly Code and on Top of Assembly code we have Machine Code and on Top of Machine Code we have High Level Code (C++ etc.) On Top of high level language we have JS. so this JS engine takes this JS code and converts it into Machine Code (which is also known as low Level Code).
-![Machine Code](image-2.png) 
+![Machine Code](/images/image-2.png) 
 
  And this is the JOB of our JS engine to convert the Code into Machine Understandable Code :
- ![V8 Engine Conversion Flow](image-3.png)
+ ![V8 Engine Conversion Flow](/images/image-3.png)
 
 If we go-to Repository of Node we will find v8 as an Dependency of Node. (https://github.com/nodejs/node/tree/main/deps/v8)
 
@@ -114,13 +114,13 @@ Window,this,self,frames all these keywords refer to Global Object in Browser's.
 __globalThis__ Points to Global Object in all the Environments(Node JS, Chrome,Safari,Edge.)As different Environments had different keywords which point to global Objet in different environments. In 2020 ECMA Finalized __globalThis__ as the Object which will refer to global Object in all the Envrionments.
 
 # Node.js Modules 
-Any piece of code written in a separate file is a module.Each file in Node.js acts as a module by default. To enable interaction between modules, we use module.exports and __require()__ (CommonJS) or export and import (ES Modules) for exporting and importing functionality.
+Any piece of code written in a separate file which is private to itself is a module.Each file in Node.js acts as a module by default. To enable interaction between modules, we use __module.exports__ and __require()__ (CommonJS) or __export__ and __import__ (ES Modules) for exporting and importing functionality.
 To make two modules work together, we use module.exports to expose functionality and require (CommonJS) or import (ES Modules) to use them in other files.
 
 require function is available to us anywhere in our Node Js Code. Whenever we run any program in Node Js require is always there just like global is always there similarly require is also there.So we can just require any file/module into another.
 
 # Node.js Modules System
-We can-not access private variables or functions which are there in a module in any other without the module in which they are present exporting them. 
+We can-not access private variables or functions which are there in a module in any other module  without the module in which they are present exporting them. 
 Modules protects their variables and functions from leaking.So to access any function or variables into another module we cannot just require 
 them in another file and use them. To use them into another module we have to first export our variables and functions.
 For eg: In our sum.js we have a function to calculate the sum of 2 numbers but we cannot import the file sum.js in our app.js
@@ -161,7 +161,7 @@ we can also do console.log(obj.x)
 We Can also directly destructure our objects directly while exporting and then we use them without writing Obj
 for eg:- const {calculateSum,x} =require("./sum.js") // imported them directly in our app.js with Object destructuring
 
-adn then we can use them without obj
+and then we can use them without obj
 calculateSum(a,b) and also 
 we can also do console.log(x)
 
@@ -171,7 +171,7 @@ module.exports={
     calculateSum
 }
 
-while importing a module using requires we can avoid writing the extension for the file as It will assume that it is (.js) file
+while importing a module using require we can avoid writing the extension for the file as It will assume that it is (.js) file
 for eg: require("./sum") // ***here we do not need to write the extension.***
 
 
@@ -239,6 +239,55 @@ We can also use require to import a json file for eg: we have a data.json file w
 
 then we can import it in our App.js file as ***const data = require("./data.json");***
 and we can do __console.log(data)__ to view the data in the file
+
+# Diving Into the Node JS GitHub Repo :-
+All the code that we write inside a module is firts Wrapped in a function then executed. This is why we cannot access variables or functions outside a function without exporting them.It is not a normal Function it is  IIFE(Immediately invoked function expression) function
+for eg:
+ (function (){
+
+ })();
+ here we have a anonymous function and we are immediately calling it {()}. 
+ So whatever code we write inside a module and when we __require__ that module node Js will take that code and will wrap it inside a function(IIFE) and then execute it. 
+
+[IIFE](/images/IIFE.jpeg)
+
+We need an IIFE Because:
+1) It Immediately invokes the code.
+2) It keeps variables and functions Safe.
+
+__Question:__ How are variables and functions private in different Module?
+Beacause of IIFE and require when we require a module it wraps that module inside an  IIFE and Then executes them.
+
+__Question:__ How do we get access to module.export ?
+Node JS passes module as a parameter to the IIFE in which the code is wrapped.
+We can access module.export because it is a property of the module object which is passed to the I
+IFE function when we require a module.
+
+All the code that we write inside a module will have module and require functions inside them and it is given to them by Node.
+
+Suppose we have module /xyz.js so node Js take our code wraps it inside a function(IIFE) and then it also add module and require functions.
+for eg:-
+(fucntion(module,require){
+/xyz.js  // Code here 
+})();
+
+And after wrappping it inside IIFE it will pass it to V8 Engine then V8 Engine will execute that code and the variables and functions inside the IIFE will not interfere with other code.
+
+__5 Step Mechanism Of Require__
+When we do a require there are 5 steps that happen:
+1) - Resolving the Module
+In this step It checks what type of data is coming. Whether it is coming from a node_module, whether it is coming from .json file whether it is coming from ./localpath and accordingly it resolve the module.
+2) - Loading the Module 
+In this step file content is loaded according to file type.
+3) - Wrapping the Module inside an IIFE
+4) - Code Evaluation (In this step module.export happens)
+5) - Caching Happens(Then the Module is cached)
+    For Eg: If we have a module which is required by multiple different modules then the node will cache that particular module that is the code 
+    for that file will run only once. And the node will cache that module means it will not keep running that module on every require it will just run it once and cache it then it will load the result for what ever file that module is required.
+
+
+
+
 
 ## NODE - JS  Practice From Basics
 
