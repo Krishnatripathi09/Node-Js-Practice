@@ -286,7 +286,20 @@ In this step file content is loaded according to file type.
     for that file will run only once. And the node will cache that module means it will not keep running that module on every require it will just run it once and cache it then it will load the result for what ever file that module is required.
 
 
+## V8 GitHub Repo
+https://github.com/nodejs/node/tree/main/deps/v8
 
+# LibUV GitHub Repo Path
+https://github.com/nodejs/node/tree/main/deps/uv
+
+## CJS and ESM Modules Documentation
+https://github.com/nodejs/node/tree/main/lib/internal/modules
+
+
+## LIB-UV and Async 
+[LIB-UV](/images/Lib-UV.png)
+
+Node-Js has an event-driven architecture capable of asynchronous I/O.
 
 
 ## NODE - JS  Practice From Basics
