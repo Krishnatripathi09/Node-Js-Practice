@@ -1,4 +1,4 @@
-const { x, calculateSum, calculateMultiply } = require("./calculate");
+const { x, calculateSum, calculateMultiply } = require("./images/calculate");
 const data = require("./data.json");
 let name = "Node Js";
 console.log(data);

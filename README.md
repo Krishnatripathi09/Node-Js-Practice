@@ -300,6 +300,38 @@ https://github.com/nodejs/node/tree/main/lib/internal/modules
 [LIB-UV](/images/Lib-UV.png)
 
 Node-Js has an event-driven architecture capable of asynchronous I/O.
+The event-driven architecture is based on the libuv library, which is a cross-platform library that provides
+a set of APIs for asynchronous I/O operations.
+
+ *** How Synchronous Code is executed in JS ***
+
+ [Sync Code Execution example](/images//Sync%20code%20execution%20in%20Js.jpeg)
+As we know JS is a single threaded language so it just has one call Stack.So whatever code we write in JS is executed in Call Stack.
+JS Engine also has a Memory Heap whenever we have a variable (a=45678) so memory heap will allocate a place for variable __a__ and it will put the value of variable __a__ inside it. So Memory heap will store all the variables or functions that we have inside memory heap.
+
+JS Engine also has __Garbage collector__. So suppose we have the variable __a__ and suppose later in the program we don't use __a__ any-further so the memory for that variable will be cleared. So JS __Garbage collector__ collects the unused variables and functions to clear the memory.
+So Garbage Collector works in Sync with Memory Heap and keeps collecting the Garbage(Unused Variables and Functions) as the program runs.
+For Eg: We have a piece of Code in above image so all the code will run inside the call Stack inside a Global execution Context. 
+So when we run the code a Global execution Context is created and it is pushed inside the callstack and all our code is wrapped and executed inside the Execution Context. And all this code will be running in a synchronous single Threaded way that means it will execute one line at  a time.
+So In our code our variables will be first stored inisde the memory heap and our function will also be stored inside the memory it will not be excuted as we have not called it yet. 
+So Once we call our function in the next line with variable __c__ One more Function Execution Context is Created and this funcntion Execution Context is Pushed inside the callStack. We also have our GEC (Global Execution Context inside the CallStack) so the call stack will not push our __GEC__ out of the call Stack as the code is still Running.
+So whatever we have in our Function Execution Context (FUC) will also Run and it will Run in Synchronous way Line by Line.
+
+And result of our __a*b__ will stored in the memory Heap.Now the next line will be executed (return result) so whatever is there in memory heap of (FEC) will be returned back from the FEC(Function execution context) to the GEC(Global Execution Context).
+[FEC to GEC](/images/FC_to_GEC.jpeg)
+
+And Once the execution of Function Execution Context is finished it is removed from the CallStack
+[FEC Removal from CallStack](/images/FEC_Removal.jpeg)
+
+So the GEC(Global Execution context) has left at the the Line where the function was called will again Start Running and as multiplyFn has returned the value of result so the ressult will stored in c and that will again stored in the Memory heap where C was stored.
+So Once the whole code is executed the GEC will also go from the call Stack and CallStack will becomes empty.
+[CallStack Empty](/images/CallStack_Empty.jpeg)
+
+
+
+
+
+
 
 
 ## NODE - JS  Practice From Basics
