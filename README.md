@@ -289,7 +289,7 @@ In this step file content is loaded according to file type.
 ## V8 GitHub Repo
 https://github.com/nodejs/node/tree/main/deps/v8
 
-# LibUV GitHub Repo Path
+# Lib-UV GitHub Repo Path
 https://github.com/nodejs/node/tree/main/deps/uv
 
 ## CJS and ESM Modules Documentation
@@ -328,10 +328,41 @@ So Once the whole code is executed the GEC will also go from the call Stack and 
 [CallStack Empty](/images/CallStack_Empty.jpeg)
 
 
+ *** How Asynchronous Code is executed in JS ***
+[Async_Execution](/images/Async_Execution.jpeg)
+As we know JS is a synchrounus single threaded language and it cannot perform Asynchronous operations by itself So Here Node comes into 
+Picture and it gives JS Engine these super powers (kind of ) to interact with system and do that.
+[Node_Gives_Powers_to_JS](/images/Node_Gives_Powers_to_JS.jpeg)
+ 
+So suppose we have a file which is on the server and JS engine wants to Read that File so JS engine needs to talk to OS to know the location of 
+the file and all these location information will come from the OS so JS engine will have to contact the OS and get the location and data from the file. Now JS Engine does not have any capability to connect to database it will need some powers to connect to database.
+Similary It also does not have the concept of time it will need to connect to OS to get the time info as operating system manages time.
+So JS Engine will need some powers to get access to all these features and these powers are given to JS by Node-JS and Node JS is doing that by a library __LibUV__. LibUV is a library that provides a set of APIs for asynchronous I/O operations. So whatever task JS Engine needs to do which it cannot directly do it,It will offload that task to Lib-UV and Lib-UV will perform that task and will get back the Response and will give it back to V8 engine.
 
+[Liv-Uv](/images/Lib-Uv.jpeg)
 
+**How Liv-Uv Performs Asynchronous Operation**
+[LIV-UV Async](/images/LIV-UV%20Async.jpeg)
 
+With Lib-Uv Async I/O is made simple.
+So whenever the v8 engine sees a API call or file read Operation the v8 Engine will offload that task to the Lib-UV and Lib-Uv will complete that task and will give the result back to V8 Engine. 
 
+***Execution of code inside Lib-UV***
+![Code execution Inside Lib-UV](<Execution Inside  Liv-Uv.jpeg>) 
+So here we will how mixture of Synchronous and Asynchronous Code is implemented in JS
+
+So JS Engine has a Memory Heap whenever we have a variable (a=45678) so memory heap will allocate a place for variable __a__ and it will put the value of variable __a__ inside it. So Memory heap will store all the variables or functions that we have inside memory heap.
+
+So when we run the code a Global execution Context is created and it is pushed inside the callstack and all our code is wrapped and executed inside the Execution Context. And all this code will be running in a synchronous single Threaded way that means it will execute one line at  a time.
+
+When the script starts, a Global Execution Context (GEC) is created and pushed onto the Call Stack.
+Any variables and functions are stored in the Memory Heap, but functions are not executed until they are called.
+2️⃣ Synchronous Code Runs in the Call Stack
+Any synchronous operations (e.g., variable assignments, mathematical operations, function calls) execute immediately inside the Call Stack.
+The Call Stack executes these operations line by line.
+3️⃣ Encountering an Asynchronous Operation
+When JavaScript encounters asynchronous operations (e.g., setTimeout(), API calls, file system operations), it offloads them to the Libuv (or Web APIs in the browser).
+These operations do not block the Call Stack. Instead, they are delegated to the Libuv (or Web APIs), allowing the synchronous code to continue executing.
 
 
 ## NODE - JS  Practice From Basics
