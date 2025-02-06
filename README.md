@@ -364,6 +364,46 @@ The Call Stack executes these operations line by line.
 When JavaScript encounters asynchronous operations (e.g., setTimeout(), API calls, file system operations), it offloads them to the Libuv (or Web APIs in the browser).
 These operations do not block the Call Stack. Instead, they are delegated to the Libuv (or Web APIs), allowing the synchronous code to continue executing.
 
+In our Async File We Have Below Code:
+
+const fs = require("node:fs");
+const https = require("https");
+
+console.log("Hello World");
+
+var a = 1078698;
+var b = 20986;
+
+// synchronous
+fs.readFileSync("./file.txt", "utf8"); // 10 ms
+console.log("This will execute only after file read");
+
+https.get("https://dummyjson.com/products/1", (res) => {
+  console.log("Fetched Data Successfully");
+});
+
+setTimeout(() => {
+  console.log("setTimeout called after 5 seconds");
+}, 5000);
+
+//Asynchronous
+fs.readFile("./file.txt", "utf8", (err, data) => {
+  console.log("File Data : ", data);
+});
+
+//Synchronous
+function multiplyFn(x, y) {
+  const result = a * b;
+  return result;
+}
+
+var c = multiplyFn(a, b);
+
+console.log("Multiplication result is : ", c);
+
+So here Code will start Executing Line By Line so first Our require() functions will be resolved then it print "Hello World" to the console
+then it will store our variables in the Memory Heap then it move to the next line and it sees there is readFile operation but in synchronous way
+__readFileSync()__ then it will read the file and print "This will execute only after file read" to the console next ir encounters a API call so it will offload that to LibUV and will move to Execution of next line then again it encounters the SetTimeOut Method then it will again offload that to Lib-Uv and move to the next line and it again sees a File Read opeartion which is a Asynchronous then again it will offload that to Lib-UV and moves to execution of the next line then it sees a Function so it will store that function in the Memory Heap and again will move to the next line and there it sees that function is called here so it again Created a Function Execution context and will start exctuing the function and after execution it will immediately return The Result and that result will again Printed to the Console.Now here till then LibUb will have completed the File Read operation till then so it will print the result of the File opearation to Dev Console and then again it would have finished API call which would take more time than file read opeartion so it will print the Data for API call to Dev Console and then it will print the Result of SetTimeOut Function to the console.
 
 ## NODE - JS  Practice From Basics
 
