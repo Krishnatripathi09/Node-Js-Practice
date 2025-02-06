@@ -403,7 +403,45 @@ console.log("Multiplication result is : ", c);
 
 So here Code will start Executing Line By Line so first Our require() functions will be resolved then it print "Hello World" to the console
 then it will store our variables in the Memory Heap then it move to the next line and it sees there is readFile operation but in synchronous way
-__readFileSync()__ then it will read the file and print "This will execute only after file read" to the console next ir encounters a API call so it will offload that to LibUV and will move to Execution of next line then again it encounters the SetTimeOut Method then it will again offload that to Lib-Uv and move to the next line and it again sees a File Read opeartion which is a Asynchronous then again it will offload that to Lib-UV and moves to execution of the next line then it sees a Function so it will store that function in the Memory Heap and again will move to the next line and there it sees that function is called here so it again Created a Function Execution context and will start exctuing the function and after execution it will immediately return The Result and that result will again Printed to the Console.Now here till then LibUb will have completed the File Read operation till then so it will print the result of the File opearation to Dev Console and then again it would have finished API call which would take more time than file read opeartion so it will print the Data for API call to Dev Console and then it will print the Result of SetTimeOut Function to the console.
+__readFileSync()__  then it will offload that to Lib-UV  and it will block the main thread till it reads the file data and once it reads the file it will move to next line and print __"This will execute only after file read"__ to the console next it encounters a API call so it will offload that to LibUV and will move to Execution of next line then again it encounters the SetTimeOut Method then it will again offload that to Lib-Uv and move to the next line and it again sees a File Read opeartion which is a Asynchronous then again it will offload that to Lib-UV and moves to execution of the next line then it sees a Function so it will store that function in the Memory Heap and again will move to the next line and there it sees that function is called here so it again Created a Function Execution context and will start exctuing the function and after execution it will immediately return The Result and that result will again Printed to the Console.Now here till then LibUb will have completed the File Read operation till then so it will print the result of the File opearation to Dev Console and then again it would have finished API call which would take more time than file read opeartion so it will print the Data for API call to Dev Console and then it will print the Result of SetTimeOut Function to the console.
+
+## Blocking Execution (Main Thread Blockded)
+const crypto = require("node:crypto");
+
+console.log("Hello World");
+
+var a = 1078698;
+var b = 20986;
+
+// pbkdf2 -  Password Base Key Deravtive Function
+
+// Synchronous Function - Will BLOCK THE MAIN THREAD - DON"T USE IT
+console.log("========");
+crypto.pbkdf2Sync("password", "salt", 50000000, 50, "sha512");
+console.log("First Key is Generated");
+
+setTimeout(() => {
+  console.log("call me right now !!!! ");
+}, 0); // it will only be called once call stack of main thread is empty
+
+// Async Function
+crypto.pbkdf2("password", "salt", 5000000, 50, "sha512", (err, key) => {
+  console.log("Second Key is generated");
+});
+
+function multiplyFn(x, y) {
+  const result = a * b;
+  return result;
+}
+
+var c = multiplyFn(a, b);
+
+console.log("Multiplication result is : ", c);
+
+Here Above we have a function on cyrpto module (pbkdf2Sync) which blocks the main thread till the execution of the task is completed.The more the number of iterations  the more time it will take to complete the execution of the task and till the task is  completed it will not move to the execution of the next line of code.
+
+Here the setTimeOut will only be called after 0ms once the call Stack of main thread is Empty. 
+
 
 ## NODE - JS  Practice From Basics
 
