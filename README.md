@@ -442,7 +442,59 @@ Here Above we have a function on cyrpto module (pbkdf2Sync) which blocks the mai
 
 Here the setTimeOut will only be called after 0ms once the call Stack of main thread is Empty. 
 
+## Deep Dive Into  V8 JS Engine.
+when we write some piece of code this code is given to V8 Engine So there are several steps that happen when we give the code to V8 Engine.
+First Step:- So the the first step that happens is __Parsing__ .
+so what happens inside parsing Stage is 
+__Parsing__
+1) Lexical Analysis: The code that we gave is broken down into tokens so this is known as Lexical Tokens. So before Analysis happens our code is broken down into Tokens.(It is also know as Tokenization. For eg: If we have var a=10 then one token will be var one token will a one token will be 10.)
 
+2) Syntax Analysis: In syntax Analysis the tokens that we have broken down our code Into from that a AST(Abstract Synatax Tree) is Created.
+So our Tokens are converted into AST in this STEP.This step is also known as __Parsing__.
+So Below is the diagram for how an AST is created from our Code.
+Site where you can find How AST looks (https://astexplorer.net/)
+[AST DiaGram](/images/AST%20.png)
+[AST2 Diagram](/images/AST2.png)
+
+While Doing the Lexical Analysis when JS Engine is not able to break our code into Tokens it throws the error __Unexpected Token__ 
+for eg: if we have declared a variable a like __var a = ;__ here it will throw __Unexpected Token__ error because the variable is not assigned with a value yet and it was not expecting the (=) token.
+
+Also it throws a similar error __Syntax error__ when it is not able to convert out code into AST(Abstract Syntax Tree)
+
+So once the AST is generated from our Code It is given to Interpreter.
+__Interpreter__ :
+There are 2 types of languages  __Interpreted__ and __Compiled__ :
+| Feature                                | Interpreter                 |               Compiler  |
+|-----------------|-------------|-----------|
+| **Execution Process**          | Reads and executes code **line by line** |    Translates the entire code into machine code before execution |
+| **Initial Execution Speed** | Faster (since it starts running immediately) |   Slower (compilation takes time) |
+| **Overall Performance** | Slower (since code is interpreted at runtime) |      Faster (compiled code runs directly as machine code) |
+| **Error Handling**            | Stops at the first error and reports it |      Reports all errors after full compilation |
+| **Usage**                 | Suitable for scripting and dynamic languages |     Suitable for performance-intensive applications |
+| **Examples**              | JavaScript (with an interpreter like V8), Python, PHP  | C, C++, Rust, Go |
+| **Flexibility**            | Can execute code dynamically                       | Requires recompilation after every change |
+| **Output**               | No separate machine code file; executes directly   | Produces an executable machine code file |
+
+
+JavaScript's V8 engine(Name of Interpreter in Google's V8 Engine is __Ignition Interpreter__) includes both an interpreter and a compiler(Name of the compiler in V8 Engine is __TurboFan Compiler__), making JavaScript a __Just-In-Time (JIT)__ compiled language. This means that JavaScript code is initially interpreted for quick execution, but frequently used code is compiled into optimized machine code at runtime. This process, known as JIT compilation, improves performance by combining the benefits of both interpretation and compilation.
+
+So the Job of the Interpreter is to convert our AST(Abstract Syntax Tree) to BYTE Code then our BYTE code is Executed.
+When ignition interpreter is doing it's JOB that is converting the AST into BYTE code  it then recognizes some piece of code which is used frequently(again and again) So the Ignition Interpreter gives that which is frequently used to  our TurboFan Compiler and it then converts that code into optimized machine code so that piece of code can be executed very-very Fast Next Time.
+So the Optimization of the code(HOT Code(which is used frequently)) is done which is used frequently in Our file. And then that optimized code is executed.
+
+It also __Deoptimizes__ our code When needed for eg: when we have a __sum__ function which takes 2 numbers sum(a,b) and till we pass numbers into it then it will work Fine but Once we pass a string into the sum function instead of number sum("a","b") so JS will deoptimize this code and again Interpreter will take that code again and it will convert it to Byte Code and Run it.
+
+And this whole Thing is Known as __JIT(Just In Time Compilation)__ in JS.
+
+And also at the same time all these things are happening it also has __GarBage Collectors__ (Orinoco) (OilPan) (Scavenger) to collect unused variables and functions 
+
+Earlier the Compiler that was used in V8 was Crank Shaft But Now it is Removed and we have Turbo Fan Compiler.
+
+[V8-Enine-Architecture](/images/V8-Architecture.jpeg)
+
+https://v8.dev/ Referenece for all the above Explanation
+https://v8.dev/docs/ignition Ignition Interpreter
+https://v8.dev/docs/turbofan Turbo Fan Compiler
 ## NODE - JS  Practice From Basics
 
 Created a Node Js Server which listens on port (3000)
