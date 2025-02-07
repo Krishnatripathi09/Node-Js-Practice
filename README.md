@@ -654,6 +654,162 @@ setImmediate
 File Reading CB
 
 
+***Event Loop Waits at The poll Phase** 
+When event loop is Idle that is it does not had any work to do(Like in above example when all the execution was completed and File read Operation is still going on) so in that Idle Phase it waits at the poll Phase. 
+
+***Example for Event loop Waiting***
+
+const fs = require("fs");
+
+setImmediate(() => console.log("setImmediate"));
+
+setTimeout(() => console.log("Timer expired"), 0);
+
+Promise.resolve("Promise").then(console.log);
+
+fs.readFile("./file.txt", "utf8", () => {
+  setTimeout(() => console.log("2nd timer"), 0);
+
+  process.nextTick(() => console.log("2nd nextTick"));
+
+  setImmediate(() => console.log(" 2nd setImmediate"));
+
+  console.log("File Reading CB");
+});
+process.nextTick(() => console.log("nextTick"));
+
+console.log("Last line of the file.");
+
+
+---Last Line Of the File,
+--nextTick
+--Promise
+--Timer Expired
+--setImmediate
+--File Reading CB
+--2nd nextTick
+--2nd nextTick
+--2nd Set Immediate
+--2ndTimer
+
+*** Code Example ***
+const fs = require("fs");
+
+setImmediate(() => console.log("setImmediate"));
+
+setTimeout(() => console.log("Timer expired"), 0);
+
+Promise.resolve("Promise").then(console.log);
+
+fs.readFile("./file.txt", "utf8", () => {
+  console.log("File Reading CB");
+});
+process.nextTick(() => {
+  process.nextTick(() => console.log(" inner nextTick"));
+  console.log("nextTick");
+});
+
+console.log("Last line of the file.");
+
+
+
+
+The code begins by importing the fs module:
+const fs = require("fs");
+Next, it schedules several asynchronous tasks:
+ setImmediate This function schedules a callback (let's call it A) to be executed
+in the next iteration of the event loop. The callback prints "setImmediate" to
+the console.
+
+tTimeout This function schedules a callback (let's call it B) to be executed
+after a delay of 0 milliseconds. The callback prints "Timer expired" to the
+console.
+ Promise.resolve This creates a promise that is immediately resolved with the
+value "promise". The .then method schedules a callback (let's call it C) to be
+executed once the promise is resolved, which prints the resolved value to the
+console.
+ fs.readFile This function initiates an asynchronous file read operation. Once
+the file is read, its callback (let's call it D) prints "File reading CB" to the
+console.
+ process.nextTick This function schedules a callback (let's call it E) to be
+executed on the next iteration of the event loop, before any I/O tasks. The
+callback itself schedules another process.nextTick callback (let's call it F) and
+prints "Process.nextTick" to the console. The second process.nextTick callback
+prints "inner nextTick" to the console.
+ console.log("Last line of the file.") This line of code prints "Last line of the
+file." to the console.
+Execution Flow
+ Synchronous Code Execution:
+The constant fs is assigned the fs module.
+The setImmediate , setTimeout , and Promise.resolve functions are scheduled.
+process.nextTick schedules its callbacks.
+console.log("Last line of the file.") is executed and printed to the console.
+ Event Loop Cycle:
+Microtasks Phase:
+The event loop first processes process.nextTick callbacks. It executes E,
+which schedules F and prints "Process.nextTick". Then, F is executed,
+printing "inner nextTick".
+Next, the promise callback (C) is executed, printing "promise".
+
+Timers Phase:
+The event loop moves to the timers phase and executes the setTimeout
+callback (B), printing "Timer expired".
+Poll Phase:
+In the poll phase, the event loop handles I/O operations. It finds that
+the file read operation is complete and executes the fs.readFile
+callback (D), printing "File reading CB".
+Check Phase:
+The event loop then moves to the check phase and executes the
+setImmediate callback (A), printing "setImmediate".
+
+////Last line of the file.
+Process.nextTick
+inner nextTick
+promise
+Timer expired
+setImmediate
+File reading CB
+
+**Snchronous Code Execution:**
+const fs = require("fs"); Imports the fs module.
+setImmediate(() => console.log("setImmediate")); Schedules callback A.
+setTimeout(() => console.log("Timer expired"), 0); Schedules callback B.
+Promise.resolve("promise").then(console.log); Schedules Promise callback.
+fs.readFile(...) Starts asynchronous file read operation. Inside the
+callback, the following occurs:
+setTimeout(() => console.log("2nd timer"), 0); Schedules callback C.
+process.nextTick(() => console.log("2nd nextTick")); Schedules callback
+D.
+setImmediate(() => console.log("2nd setImmediate")); Schedules callback
+E.
+console.log("File reading CB"); Logs "File reading CB" .
+process.nextTick(() => console.log("Porcess.nextTick")); Schedules callback
+F.
+console.log("Last line of the file."); Logs "Last line of the file." 
+
+**Microtasks:**
+The microtasks queue is processed first, so callbacks F (from
+process.nextTick ) and the Promise callback are executed in this order.
+"Porcess.nextTick" is logged.
+"promise" is logged from the Promise callback.
+ Timers Phase:
+The event loop processes the timers queue next, executing callback B
+(from setTimeout with 0 milliseconds delay).
+"Timer expired" is logged.
+ setImmediate Phase:
+The event loop then processes the setImmediate callbacks. Both A and E
+are executed:
+"setImmediate" is logged.
+"2nd setImmediate" is logged.
+ Poll Phase:
+During the poll phase, any remaining I/O callbacks are processed. In this
+case, callback C (from fs.readFile ) is executed, which includes:
+Logging "2nd timer" from callback C.
+Logging "File reading CB" from the fs.readFile callback.
+
+
+
+
 ## NODE - JS  Practice From Basics
 
 Created a Node Js Server which listens on port (3000)
