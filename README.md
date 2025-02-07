@@ -542,6 +542,7 @@ _And This is How It Keeps Running._
 All these different phases of Event Loop are maintained in Different Queues in CallBack Queue.
 [Event-Loop-Working](/images/Event-Loop-Working.jpeg)
 
+**Example-1**
 const a =100;
 setImmediate(()=>console.log("setImmediate));
 
@@ -587,6 +588,71 @@ This demonstrates how asynchronous tasks are managed in Node.js, with the
 event loop ensuring they are executed at the appropriate time.
 
 Here Even If the File Read operation Happens in the poll phase and setImmediate happens in Check phase the File Reading DB will be printed last because it will be completed in the next cycle of event Loop as File Read Operation is still not completed till the setImmediate function is printed to the console.
+
+**Example-2**
+
+const fs = require("fs");
+const a = 100;
+
+setImmediate(() => console.log("setImmediate"));
+
+Promise.resolve("Promise").then(console.log);
+
+fs.readFile("./file.txt", "utf8", () => {
+  console.log("File Reading CB");
+});
+
+setTimeout(() => console.log("Timer expired"), 0);
+
+process.nextTick(() => console.log("process.nextTick"));
+
+function printA() {
+  console.log("a=", a);
+}
+
+printA();
+console.log("Last line of the file.");
+
+Here in this Code: -
+
+As soon as the codde execution starts setImmediate function will wait in a CallBack Queue of setImmediate().
+Now the promise.resolve has a Priority Queue and similarly there is different Queue for process.nextTick()
+so the Call back for promise.resolve() will be scheduled in the Queue.
+And Code moves to next Line which is a file Read operation so it will also take time so the code moves to next line so 
+setTimeout() will be scheduled in the timers queue and as we have 0 timer it will be executed immediately and as we have a callback function 
+c so the callback function will be scheduled in another Queue we can call it as __Timer Queue__.
+[Code_Execution](/images/Code_Execution_Inside.jpeg)
+
+Now the code execution will move to next line which is process.nextTick() so it will also not wait for anything and it will go inside it's Queue.
+
+Now V8 Engine will continue executing the synchronous Code so a=100 will be executed after that.
+Last Line of the Code will also be executed after that.
+So next the Event Loop will Find that CallStack is Empty the Event-Loop will first go to Process.nextTick() and will execute that 
+If there were multiple process.nectTicks() then it will execute them all.
+So next it will Print __process.nextTick__ to the console. and nextTick Queue will also beocme empty and it will be removed from __CallStack__
+Then it will go to the Promise Queue and will execute the callback function of the promise.
+So next it will print __Promise__ to the console. and Promise queue will also become empty and it will be removed from __CallStack__
+
+Next it will go to the Timer Phase and it will check the timer Queue so __Timer expired__ will be printed to the console and it will be removed from the CallBack Queue
+
+Next it will go to process.nextTick() and promise callbacks and it will find that there are no operations to be completed so it will then go to 
+the poll Phase.
+And as the File Reading Operation is not completed still then there will be nothing in the Poll Queue. So it will again move to the next phase 
+and before that it will again check process.nextTick() and promise callbacks and it will find that there are no operations to be completed so it will then go to the check phase and there it will find the setImmediate() callback function so it will Quickly execute that and then it will move to the next phase again but as there are not tasks to be completed it will wait for file Read Operations to finish it will wait.
+And Once the File Read Operation is Finished the the file Read CallBack function will be waiting in the call Back Queue.
+So next the Event Loop will find that Call-Stack is Empty and it will quickly push the CallBack function in CallStack and it will execute It.
+So next it will print __File Reading CB__ to the console and it will be removed from the
+CallBack Queue as well as call Stack.
+
+## Code Output
+a = 100
+Last line of the file.
+Process.nextTick
+promise
+Timer expired
+setImmediate
+File Reading CB
+
 
 ## NODE - JS  Practice From Basics
 
