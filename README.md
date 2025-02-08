@@ -54,22 +54,22 @@ For Eg: When a client using  Internet write's Google.com and Hit's enter in Brow
 - Chrome's JavaScript engine is called V8. It's a high-performance engine that compiles JavaScript And it is written in C++.
 To Confirm this go-to Browser and Search __v8 Github__ if you click on the first link of v8 ( https://github.com/v8/v8 )
 and when you scroll down to Language Section you will see that 78% of code is written in C++ for JS Engine. And Other Languages are also there like JS itself, pyhton, TypeScript etc.
-![Languages Used to Write V8 Engine ](/images/image.png)
+![Languages Used to Write V8 Engine ](./images/image.png)
 We can also find the Reference for this at v8 Engines Official Website (https://v8.dev/)
 ***V8 can be embedded in Any C++ Application*** - So the creator of Node just embedded this v8 engine into a c++ Application and we call it Node Js.
 
-![JS Engine Diagram](/images/Js-Engine.jpeg)
+![JS Engine Diagram](./images/Js-Engine.jpeg)
 
 Node Js has V8 Engine + Other __SuperPowers__(will continue Below later) which are API's On server.So V8 Engine's only Job is to execute JS on server. But to get more Features Node JS has other powers along with v8 which is why it's called JS RunTime.
 
-![Lnaguages used in Node Js](/images/image-1.png)
+![Lnaguages used in Node Js](./images/image-1.png)
 
 # Why v8 is a C++ Code.
 Our Compouters Understand's Binary Code (0 and 1's) and on top of Binary code we have Assembly Code and on Top of Assembly code we have Machine Code and on Top of Machine Code we have High Level Code (C++ etc.) On Top of high level language we have JS. so this JS engine takes this JS code and converts it into Machine Code (which is also known as low Level Code).
-![Machine Code](/images/image-2.png) 
+![Machine Code](./images/image-2.png) 
 
  And this is the JOB of our JS engine to convert the Code into Machine Understandable Code :
- ![V8 Engine Conversion Flow](/images/image-3.png)
+ ![V8 Engine Conversion Flow](./images/image-3.png)
 
 If we go-to Repository of Node we will find v8 as an Dependency of Node. (https://github.com/nodejs/node/tree/main/deps/v8)
 
@@ -249,7 +249,7 @@ for eg:
  here we have a anonymous function and we are immediately calling it {()}. 
  So whatever code we write inside a module and when we __require__ that module node Js will take that code and will wrap it inside a function(IIFE) and then execute it. 
 
-[IIFE](/images/IIFE.jpeg)
+[IIFE](./images/IIFE.jpeg)
 
 We need an IIFE Because:
 1) It Immediately invokes the code.
@@ -297,7 +297,7 @@ https://github.com/nodejs/node/tree/main/lib/internal/modules
 
 
 ## LIB-UV and Async 
-[LIB-UV](/images/Lib-UV.png)
+[LIB-UV](./images/Lib-UV.png)
 
 Node-Js has an event-driven architecture capable of asynchronous I/O.
 The event-driven architecture is based on the libuv library, which is a cross-platform library that provides
@@ -305,7 +305,7 @@ a set of APIs for asynchronous I/O operations.
 
  *** How Synchronous Code is executed in JS ***
 
- [Sync Code Execution example](/images//Sync%20code%20execution%20in%20Js.jpeg)
+ [Sync Code Execution example](./images//Sync%20code%20execution%20in%20Js.jpeg)
 As we know JS is a single threaded language so it just has one call Stack.So whatever code we write in JS is executed in Call Stack.
 JS Engine also has a Memory Heap whenever we have a variable (a=45678) so memory heap will allocate a place for variable __a__ and it will put the value of variable __a__ inside it. So Memory heap will store all the variables or functions that we have inside memory heap.
 
@@ -318,31 +318,31 @@ So Once we call our function in the next line with variable __c__ One more Funct
 So whatever we have in our Function Execution Context (FUC) will also Run and it will Run in Synchronous way Line by Line.
 
 And result of our __a*b__ will stored in the memory Heap.Now the next line will be executed (return result) so whatever is there in memory heap of (FEC) will be returned back from the FEC(Function execution context) to the GEC(Global Execution Context).
-[FEC to GEC](/images/FC_to_GEC.jpeg)
+[FEC to GEC](./images/FC_to_GEC.jpeg)
 
 And Once the execution of Function Execution Context is finished it is removed from the CallStack
-[FEC Removal from CallStack](/images/FEC_Removal.jpeg)
+[FEC Removal from CallStack](./images/FEC_Removal.jpeg)
 
 So the GEC(Global Execution context) has left at the the Line where the function was called will again Start Running and as multiplyFn has returned the value of result so the ressult will stored in c and that will again stored in the Memory heap where C was stored.
 So Once the whole code is executed the GEC will also go from the call Stack and CallStack will becomes empty.
-[CallStack Empty](/images/CallStack_Empty.jpeg)
+[CallStack Empty](./images/CallStack_Empty.jpeg)
 
 
  *** How Asynchronous Code is executed in JS ***
-[Async_Execution](/images/Async_Execution.jpeg)
+[Async_Execution](./images/Async_Execution.jpeg)
 As we know JS is a synchrounus single threaded language and it cannot perform Asynchronous operations by itself So Here Node comes into 
 Picture and it gives JS Engine these super powers (kind of ) to interact with system and do that.
-[Node_Gives_Powers_to_JS](/images/Node_Gives_Powers_to_JS.jpeg)
+[Node_Gives_Powers_to_JS](./images/Node_Gives_Powers_to_JS.jpeg)
  
 So suppose we have a file which is on the server and JS engine wants to Read that File so JS engine needs to talk to OS to know the location of 
 the file and all these location information will come from the OS so JS engine will have to contact the OS and get the location and data from the file. Now JS Engine does not have any capability to connect to database it will need some powers to connect to database.
 Similary It also does not have the concept of time it will need to connect to OS to get the time info as operating system manages time.
 So JS Engine will need some powers to get access to all these features and these powers are given to JS by Node-JS and Node JS is doing that by a library __LibUV__. LibUV is a library that provides a set of APIs for asynchronous I/O operations. So whatever task JS Engine needs to do which it cannot directly do it,It will offload that task to Lib-UV and Lib-UV will perform that task and will get back the Response and will give it back to V8 engine.
 
-[Liv-Uv](/images/Lib-Uv.jpeg)
+[Liv-Uv](./images/Lib-Uv.jpeg)
 
 **How Liv-Uv Performs Asynchronous Operation**
-[LIV-UV Async](/images/LIV-UV%20Async.jpeg)
+[LIV-UV Async](./images/LIV-UV%20Async.jpeg)
 
 With Lib-Uv Async I/O is made simple.
 So whenever the v8 engine sees a API call or file read Operation the v8 Engine will offload that task to the Lib-UV and Lib-Uv will complete that task and will give the result back to V8 Engine. 
@@ -454,8 +454,8 @@ __Parsing__
 So our Tokens are converted into AST in this STEP.This step is also known as __Parsing__.
 So Below is the diagram for how an AST is created from our Code.
 Site where you can find How AST looks (https://astexplorer.net/)
-                                       [AST DiaGram](/images/AST%20.png)
-                                       [AST2 Diagram](/images/AST2.png)
+                                       [AST DiaGram](./images/AST%20.png)
+                                       [AST2 Diagram](./images/AST2.png)
 
 While Doing the Lexical Analysis when JS Engine is not able to break our code into Tokens it throws the error __Unexpected Token__ 
 for eg: if we have declared a variable a like __var a = ;__ here it will throw __Unexpected Token__ error because the variable is not assigned with a value yet and it was not expecting the (=) token.
@@ -522,25 +522,29 @@ Whenver the __JS Engine__ is executing Some Piece of code then all the Async fun
 So once-the  __Call-Stack__ of JS engine is empty then only the further execution of Code from Lib-Uv Call Back queue will be done.
 And to Achieve the execution of tasks waiting in CallBack Queue in CallStack We have Event Loop.The Job of __Event-Loop__ is to keep Checking __CallStack__ and CallBack Queue and if there are some tasks waiting in Call-Back Queue it checks the Call-Stack of JS Engine and  as soon as Call Stack is Empty It pushes the tasks waiting in Call Back Queue to Call Stack.For eg: When API call is completed in our code then the callback function will wait in the CallBack Queue and as soon as the __CallStack__ is Empty the Event loop will take the task from call Back Queue and will push it into Call Stack and v8 engine will Execute that task.
 Suppose if there is a Race Condition when all the Async tasks are completed at the Same time and they are waiting in CallBack Queue for there Execution So Here in this Case __Event Loop__ have to Prioritize which code to be first implemented in Call Stack.
-*** Working of Event Loop ***Event Loop Run's in a Loop and it has different Phases in the Loop.There are 4 Major phases in Event Loop:
+*** Working of Event Loop ***
+Event Loop Run's in a Loop and it has different Phases in the Loop.There are 4 Major phases in Event Loop:
 1) Timer
 2) Poll
 3) Check
 4) Close
+
 Event Loop starts in __Timer Phase__(All Timer Operaions (setTimeOut or setIntverals)). In this phase all the call backs which are set by setTimeOut or setIntverals are executed in this Phase. So Event Loop Prioritizes the Timer Call Backs First.
-After that it Has  the __Poll Phase__(I/O CallBacks):In Poll Phase all the callbacks associated with I/O callbacks will be executed in this phaseSuppose there are users who are making API call to our Server so these are incoming Connections.Or Suppose there are file read operations like (fs.readFile) so this callback function will be executed and will wait in the poll phase or If we are making API call's (http.get) then these  callback functions will be executed in Poll Phase. Most of the CallBack's will be excuted in Poll Phase.
-After that it Has __Check Phase__:In the check Phase all the call backs which are scheduled by __setImmediate__ and are waiting in CallBack Queue will be executed in Check Phase.
-After that it Has __Close Phase__:In this phase all the close Operations Happen For eg: If we have opened a socket and now we want to close the socket then the handling the socket on close will happen in Close phase.This phase is like a closing and cleanup things.
+After that it Has  the __Poll Phase__(I/O CallBacks):In Poll Phase all the callbacks associated with I/O callbacks will be executed in this phase Suppose there are users who are making API call to our Server so these are incoming Connections.Or Suppose there are file read operations like (fs.readFile) so this callback function will be executed and will wait in the poll phase or If we are making API call's (http.get) then these  callback functions will be executed in Poll Phase. Most of the CallBack's will be excuted in Poll Phase.
+After that it Has __Check Phase__:
+In the check Phase all the call backs which are scheduled by __setImmediate__ and are waiting in CallBack Queue will be executed in Check Phase.
+After that it Has __Close Phase__:
+In this phase all the close Operations Happen For eg: If we have opened a socket and now we want to close the socket then the handling the socket on close will happen in Close phase.This phase is like a closing and cleanup things.
 So Event loop Run's in this manner and at the same time it also keep's an eye on callStack to see if callStack is empty so that next task can be executed there.
 So Here Event Loop Also Follow's an Inside Cycle which has
 __Process.nextTick()__ and __Promise CallBacks__( suppose there is a promise and that promise is resolved so there is callback that needs to be executed.)
 
-[Event-Loop](/images/Event-Loop.jpeg)
+[Event-Loop](./images/Event-Loop.jpeg)
 
 These 2 Inside cycles will be executed before Every Phase. So when event loop starts it will first go to _process.nextTick()_ and if there is any process.nextTick then it will execute that and then it will go to _promise CallBacks_ to see if there is any promise callBack waiting then it will execute that and then it will go to Timer Phase And Once it excutes Timer Phase it will again go to inside cycle and will go to _process.nextTick()_ and if there is any _process.nextTick_ then it will execute that and then it will go to _promise CallBacks_ to see if there is any promise callBack waiting then it will execute that and then it will go to next phase that is _Check Phase_ and will execute that and then again it will go to _inside cycle_ and then after execution of inside cycle and _execute_ Them.
 _And This is How It Keeps Running._
 All these different phases of Event Loop are maintained in Different Queues in CallBack Queue.
-[Event-Loop-Working](/images/Event-Loop-Working.jpeg)
+[Event-Loop-Working](./images/Event-Loop-Working.jpeg)
 
 **Example-1**
 const a =100;
@@ -558,13 +562,11 @@ function printA(){
 printA();
 console.log("Last Line Of the File.")
 
-[Event-Loop-Code-Execution](/images/Event-Loop-Code-Execution.png)
+[Event-Loop-Code-Execution](./images/Event-Loop-Code-Execution.png)
 
 The code begins by declaring a constant a with a value of 100
 **const a = 100;**
-Next, the setImmediate function is encountered. This function is asynchronous, so the V8 engine offloads it to the libuv library. The associated callback function (let's call it A) is placed into the setImmediate callback queue, where it waits for execution because the V8 engine is currently busy. The code then encounters the fs.readFile function. libuv handles this operation
-by calling the OS to start reading the file. Meanwhile, V8 continues processing the
-remaining code.
+Next, the setImmediate function is encountered. This function is asynchronous, so the V8 engine offloads it to the libuv library. The associated callback function (let's call it A) is placed into the setImmediate callback queue, where it waits for execution because the V8 engine is currently busy. The code then encounters the fs.readFile function. libuv handles this operation by calling the OS to start reading the file. Meanwhile, V8 continues processing the remaining code.
 Moving on, the code encounters the setTimeout function with callback function B and a delay of 0 milliseconds. Function B is added to the timers queue, where it waits for execution, as V8 is still busy with the current task.
 
 The function printA() is called next, which outputs a = 100 to the console:
@@ -579,6 +581,7 @@ At this point, all synchronous code has been executed, and the call stack is now
 
 Next, the event loop moves to the poll phase. Finding nothing in the poll queue, it proceeds to the check phase, where A is waiting. The event loop then pushes A to the call stack, and it is executed, printing "setImmediate" to the console. Meanwhile, libuv finishes reading the file, and the associated callback function C waits in the poll queue. The event loop eventually picks up C, executes it, and "File Reading CB" is printed to the console. C is then removed from the call stack, leaving the stack empty once more.
 Thus, the final output of the code is:
+
 a = 100
 Last line of the file.
 Timer expired
@@ -615,13 +618,13 @@ console.log("Last line of the file.");
 
 Here in this Code: -
 
-As soon as the codde execution starts setImmediate function will wait in a CallBack Queue of setImmediate().
+As soon as the code execution starts setImmediate function will wait in a CallBack Queue of setImmediate().
 Now the promise.resolve has a Priority Queue and similarly there is different Queue for process.nextTick()
 so the Call back for promise.resolve() will be scheduled in the Queue.
 And Code moves to next Line which is a file Read operation so it will also take time so the code moves to next line so 
 setTimeout() will be scheduled in the timers queue and as we have 0 timer it will be executed immediately and as we have a callback function 
 c so the callback function will be scheduled in another Queue we can call it as __Timer Queue__.
-[Code_Execution](/images/Code_Execution_Inside.jpeg)
+[Code_Execution](./images/Code_Execution_Inside.jpeg)
 
 Now the code execution will move to next line which is process.nextTick() so it will also not wait for anything and it will go inside it's Queue.
 
@@ -680,6 +683,7 @@ process.nextTick(() => console.log("nextTick"));
 
 console.log("Last line of the file.");
 
+Sequence Of Execution:-
 
 ---Last Line Of the File,
 --nextTick
@@ -721,35 +725,10 @@ Next, it schedules several asynchronous tasks:
 in the next iteration of the event loop. The callback prints "setImmediate" to
 the console.
 
-tTimeout This function schedules a callback (let's call it B) to be executed
-after a delay of 0 milliseconds. The callback prints "Timer expired" to the
-console.
- Promise.resolve This creates a promise that is immediately resolved with the
-value "promise". The .then method schedules a callback (let's call it C) to be
-executed once the promise is resolved, which prints the resolved value to the
-console.
- fs.readFile This function initiates an asynchronous file read operation. Once
-the file is read, its callback (let's call it D) prints "File reading CB" to the
-console.
- process.nextTick This function schedules a callback (let's call it E) to be
-executed on the next iteration of the event loop, before any I/O tasks. The
-callback itself schedules another process.nextTick callback (let's call it F) and
-prints "Process.nextTick" to the console. The second process.nextTick callback
-prints "inner nextTick" to the console.
- console.log("Last line of the file.") This line of code prints "Last line of the
-file." to the console.
-Execution Flow
- Synchronous Code Execution:
-The constant fs is assigned the fs module.
-The setImmediate , setTimeout , and Promise.resolve functions are scheduled.
-process.nextTick schedules its callbacks.
-console.log("Last line of the file.") is executed and printed to the console.
- Event Loop Cycle:
-Microtasks Phase:
-The event loop first processes process.nextTick callbacks. It executes E,
-which schedules F and prints "Process.nextTick". Then, F is executed,
-printing "inner nextTick".
-Next, the promise callback (C) is executed, printing "promise".
+setTimeout This function schedules a callback (let's call it B) to be executed after a delay of 0 milliseconds. The callback prints "Timer expired" to the console. Promise.resolve This creates a promise that is immediately resolved with the value "promise". The .then method schedules a callback (let's call it C) to be executed once the promise is resolved, which prints the resolved value to the
+console. fs.readFile This function initiates an asynchronous file read operation. Once the file is read, its callback (let's call it D) prints "File reading CB" to the console. process.nextTick This function schedules a callback (let's call it E) to be executed on the next iteration of the event loop, before any I/O tasks. The callback itself schedules another process.nextTick callback (let's call it F) and prints "Process.nextTick" to the console. The second process.nextTick callback prints "inner nextTick" to the console. console.log("Last line of the file.") This line of code prints "Last line of thefile." to the console.Execution FlowSynchronous Code Execution:The constant fs is assigned the fs module.The setImmediate , setTimeout , and Promise.resolve functions are scheduled.process.nextTick schedules its callbacks.
+console.log("Last line of the file.") is executed and printed to the console. Event Loop Cycle:Microtasks Phase: The event loop first processes process.nextTick callbacks. It executes E, which schedules F and prints "Process.nextTick". Then, F is executed,
+printing "inner nextTick". Next, the promise callback (C) is executed, printing "promise".
 
 Timers Phase:
 The event loop moves to the timers phase and executes the setTimeout
@@ -788,8 +767,7 @@ F.
 console.log("Last line of the file."); Logs "Last line of the file." 
 
 **Microtasks:**
-The microtasks queue is processed first, so callbacks F (from
-process.nextTick ) and the Promise callback are executed in this order.
+The microtasks queue is processed first, so callbacks F (from process.nextTick ) and the Promise callback are executed in this order.
 "Porcess.nextTick" is logged.
 "promise" is logged from the Promise callback.
  Timers Phase:
@@ -808,6 +786,64 @@ Logging "2nd timer" from callback C.
 Logging "File reading CB" from the fs.readFile callback.
 
 
+***One FUll Cycle of Event Loop is Known As Tick***
+There are more phases in Event Loop. when suppose there are some I/O callBacks which cannot be handled in poll phase so they will be handled in next phase before poll phase which is known as __callBack Phase__
+
+There is also a Phase known as __Idle,Prepare Phase__ which is only used Internally.
+
+## Thread Pool :-
+Thread is Basically like a container where we can run some piece of code and if we want to block the thread we can block it.
+Whenever there is an Asynchronous task,V8 offloads it to LibUv.
+For Example : when reading a file libUv,uses one of the threads in its thread pool. The file system(fs) call is assigned to a thread in the pool,and that thread makes a request to the OS.While the file is being read, the thread in the pool is fully occupied and cannot perform any other tasks. Once the file reading operation is complete, the engaged thread is freed up and becomes available for other operations. For Instance
+,if we are performing a cryptographic opeartion like hashing,it will be  assigned to another thread. 
+**There are certain operations for which libUv uses the thread pool**
+for eg: When we perform tasks like __file System(fs)__,__DNS lookups__ or __cryptographic__ methods or some user Specified Input, libUV uses thread Pool.
+DNS (Domain Name System) lookup is the process of translating a human-readable domain name (e.g., google.com) into a machine-readable IP address (e.g., 142.250.190.14).
+
+***Default Size of thread pool in Lib-UV is 4. UV_THREADPOOL_SIZE = 4;***
+So suppose if we make 5 simultaneous file reading calls. what Happens is that 4 file calls will occupy 4 threads,and the 5th one will wait until
+one of the threads is freed up.
+We can also change the __SIZE of Thread POOL__ by setting the __UV_THREADPOOL_SIZE__ environment Variable
+for eg: __process.env.UV_THREADPOOL_SIZE = 8__;
+
+ __IS Node JS Single Threaded or Multi-Threaded ?__.
+then ask  when? beacuse it depends what type of code we want to run as When we are dealing with synchronous code then Node JS is Single Threaded but if we are dealing with Asynchronous tasks then Lib-UV utilizes LibUV's __THREAD-POOL__ making it multi-Threaded
+
+const crypto = require("node:crypto");
+const fs = require("fs");
+// Async Function
+crypto.pbkdf2("password", "salt", 500000, 50, "sha512", (err, key) => {
+  console.log("1- First Key is generated");
+});
+
+// fs.readFile("./file.txt", "utf8", () => {
+//   console.log("File Reading CB");
+// });
+
+crypto.pbkdf2("password", "salt", 500000, 50, "sha512", (err, key) => {
+  console.log(" 2: - Second Key is generated");
+});
+
+crypto.pbkdf2("password", "salt", 500000, 50, "sha512", (err, key) => {
+  console.log(" 3: - third Key is generated");
+});
+
+crypto.pbkdf2("password", "salt", 500000, 50, "sha512", (err, key) => {
+  console.log(" 4: - fourth Key is generated");
+});
+
+crypto.pbkdf2("password", "salt", 500000, 50, "sha512", (err, key) => {
+  console.log(" 5th: - Fifth Key is generated");
+});
+
+So If we run Above piece of code the first 4 functions will be implemented immediately as __Thread Pool__ By default has 4 threads so the first
+4 functions will be executed immediately and the 5th one will wait until one of the threads is freed up. 
+Also we can increase the Size of thread pooll by setting __process.env.UV_THREADPOOL_SIZE = 2;__ to 2 so only 2 taska will be completed in one go and the other will wait till the one of the thread is free.
+
+**So Suppose there are some Users who are Hitting API's on Server so Does the API's Use Thread Pool ?**
+No The API's Do not use thread pool. So suppose a users makes an API call then the user is requesting to make a connection so to listen to incoming requests we need a socket and if there are multiple incoming requests then there will be multiple sockets and each socket has socket descriptor (file descriptor(FDS)). Now suppose we want to write some data from this incoming API request so that means it a blocking operation as we want to write data so we cannot do anything else on that request. So If we have multiple connections we might need multiple threads.
+So for 1000 operations we will need 1000 such threads so instead this scenario is handled using e-poll(Linux)(Scalable I/O event Notificaion mechanism)/K-Queue(Mac-OS).
+so for multiplt incoming resquests we can create a e-poll-descriptor and it is a collection of multiple socket descriptors.
 
 
 ## NODE - JS  Practice From Basics
