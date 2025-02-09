@@ -65,7 +65,7 @@ Node Js has V8 Engine + Other __SuperPowers__(will continue Below later) which a
 ![Lnaguages used in Node Js](./images/image-1.png)
 
 # Why v8 is a C++ Code.
-Our Compouters Understand's Binary Code (0 and 1's) and on top of Binary code we have Assembly Code and on Top of Assembly code we have Machine Code and on Top of Machine Code we have High Level Code (C++ etc.) On Top of high level language we have JS. so this JS engine takes this JS code and converts it into Machine Code (which is also known as low Level Code).
+Our Computers Understand's Binary Code (0 and 1's) and on top of Binary code we have Assembly Code and on Top of Assembly code we have Machine Code and on Top of Machine Code we have High Level Code (C++ etc.) On Top of high level language we have JS. so this JS engine takes this JS code and converts it into Machine Code (which is also known as low Level Code).
 ![Machine Code](./images/image-2.png) 
 
  And this is the JOB of our JS engine to convert the Code into Machine Understandable Code :
@@ -807,7 +807,7 @@ We can also change the __SIZE of Thread POOL__ by setting the __UV_THREADPOOL_SI
 for eg: __process.env.UV_THREADPOOL_SIZE = 8__;
 
  __IS Node JS Single Threaded or Multi-Threaded ?__.
-then ask  when? beacuse it depends what type of code we want to run as When we are dealing with synchronous code then Node JS is Single Threaded but if we are dealing with Asynchronous tasks then Lib-UV utilizes LibUV's __THREAD-POOL__ making it multi-Threaded
+then ask  when? beacuse it depends what type of code we want to run as When we are dealing with synchronous code then Node JS is Single Threaded but if we are dealing with Asynchronous tasks then Lib-UV utilizes LibUV's __THREAD-POOL__ making it multi-Threaded.
 
 const crypto = require("node:crypto");
 const fs = require("fs");
@@ -844,6 +844,137 @@ Also we can increase the Size of thread pooll by setting __process.env.UV_THREAD
 No The API's Do not use thread pool. So suppose a users makes an API call then the user is requesting to make a connection so to listen to incoming requests we need a socket and if there are multiple incoming requests then there will be multiple sockets and each socket has socket descriptor (file descriptor(FDS)). Now suppose we want to write some data from this incoming API request so that means it a blocking operation as we want to write data so we cannot do anything else on that request. So If we have multiple connections we might need multiple threads.
 So for 1000 operations we will need 1000 such threads so instead this scenario is handled using e-poll(Linux)(Scalable I/O event Notificaion mechanism)/K-Queue(Mac-OS).
 so for multiplt incoming resquests we can create a e-poll-descriptor and it is a collection of multiple socket descriptors.
+
+## Creating a Server:
+**What is A Server**
+The term "server" can refer to both hardware and software, depending on the context.
+- Hardware A physical machine (computer) that provides resources and services to other computers (clients) over a network.
+- Software An application or program that handles requests and delivers data to clients.
+
+Suppose we have a hardware where we have stored Data which anybody else wants to access so we need to run an application on that hardware which 
+can handle those incoming requests coming to that particular hardware,so we will need an application which will listen to all the incoming requets and will send appropriate response accordingly what the user is requesting and for that we will need an application which is running on an OS(operating system).As in our normal system we cannot run any application program without OS.
+
+So here we can refer to application running on a Hardware as a server or to the Hardware on which application is Running as server.
+For eg: when we say we are moving our App to AWS that means AWS is maintaining a Hardware and it is giving you that hardare resource via a application so that you can run your app on on that Hardware.
+
+**SO What is the Diff between a Our Computer and a server**
+As from the definition we understood that server is a remote compouter running some software program inside an OS. Similarly our system is also 
+a computer running some software program inside an OS. So on Ground Level there is No Difference between our SYSTEM and Remote Server.
+But there are some Limitations in our System:
+
+When we take a Server from AWS which (we call an EC2 Instance).So similarly we can make our Laptop as a Server 
+But there are some Limitations in our System:
+ **Scalability**: Our System is not scalable. We can't just add more RAM OR CPU to our System. We can't just add more Hard Disk Space to our System But in case of AWS we can just click some buttons and add more 
+ RAM or CPU or Hard Disk Space to our System.
+ **Always Online**: AWS Servers are always Running,Always Online with 24*7 Internet Coonectivity with no powert Outage but In our case we cannot keep our Laptop Running 24*7 or cannot provide Internet Connectivity And Electricity 24*7.
+
+When we say we are creating a Server Application (Node Application) It means we are creating an Application which can Listen to Incoming Requests
+and can send appropriate response accordingly what the user is requesting.
+
+When someone Says he has purchased a Server It means he has purchased a Remote Computer which is Running a software Program.
+
+__Client-Server Architecture__
+[Client-Server-Architecture](./images/Client-Server-Architecture.jpeg)
+The term "client" refers to someone accessing a server. Imagine a user sitting at a computer wanting to access a file from a server. For this, the client needs to open a socket connection (not to be confused with WebSocket). Every client has an IP
+address, and every server has an IP address as well. The client could be a web browser.
+
+To access the file, the client opens a socket connection. On the server side, there should be an application that is listening for such requests so this application is known as server sometimes and this application retrieves the requested file, and sends it back to the client.
+
+There can be multiple clients, and each client creates a socket connection to get data. After the data is received, the socket connection is closed. If the client needs to make another request, a new socket connection is created, data is retrieved, and the connection is closed again.
+
+Sockets operate using the (TCP/IP protocol Transmission Control Protocol/Internet Protocol).
+
+**What Is a Protocol**
+A protocol is a set of rules that define how computers communicate with each other.Protocols determine the format in which data is sent between devices.
+(FTP File Transfer Protocol): Used for transferring files. (SMTP Simple Mail Transfer Protocol): Used for sending emails.
+
+**Why Internet is called WEB**
+Suppose There are so many people who have there own Computers and all those computers are connected to the internet.
+If everyone is connected to Internet then every computer will have an IP Addres, which is a way to locate and specify that computer(like an address for computer). SO with that IP they can connect to other IP and like this Anybody can connect to Anyone and a structure like this looks like a web so that is why it is known as web. 
+
+When we make a Server request so the data that we have requested from the server is not Sent in One go But it is sent in Packets.
+Each packet has a header and a body. The header contains the source and destination IP addresses, the
+sequence number, and other information. The body contains the actual data.
+
+Stream means Connection and Buffer means sending the Data in Chunks.
+
+The language that server and client speak to communicate with each other is defined by __HTTP__ protocol.
+__TCP/IP__ protocol is the protocol for sending the data Over an IP.So the data transmission is controlled by TCP/IP protocol.
+
+Whenver we type a domain it is mapped to an IP. So when we type some domain name in browser seacrh it is mapped to an IP by DNS
+(Domain Name System) and then the browser sends a request to that IP and the server responds with the requeted Data.
+When users are requesting some data and we have 2 different HTTP servers (means 2 different node application running on a Server)
+so we know to which server we have to go with the PORT Number. 
+We can have multiple node applications running on different ports so to communicate with the particular server we have to go to that particular port.
+
+Suppose in our server we have a React application running on our server on PORT 3000 and we also have our Node application running on Port
+3001 so we can map our domain name (namastedev.com/)to port 3000 but when there is (namastedev.com/api) we can map it go on port 3001:
+
+On our server we can deploy all our application on a single server. Or we can have different part of our application running on different servers
+So we can have our React application running on one server and our Node application running on another server.
+
+There can be multiple users which can come to our serverrs to request some data etc.
+So suppose a user came and requested the URL(namastedev.com) so the server will make a socket connection and gets back the response of namastedev.com and website will rendered on Users system and the socket will be closed.
+And suppose we go to some other page then server will again make a socket connection and will serve the Data Back and will close the Connection 
+Again.
+Similarly like this suppose there are so many users who are requesting the Data from server, creating a socket connection and closing the socket connectio.
+Web socket is a new concept in which suppose a user has made a connection then that connection stay's for a long time it is not closed 
+Instantly It will hold that connection and client and server can talk to each other which is open for a long Time.
+But In General Case we use socket only.Web Sockets actually use More Resource than normal Sockets.
+
+To creat a server we have a module called "http" which has method ___createServer__ 
+to import core modules of nodeJS we can use require(node:http) or we can give just require(http)
+
+Here we have imported our module http 
+and then we have created an instance of our server 
+Then we have done server.listen to make our server listen to incoming requests.
+
+const http = require("http")
+const server = http.createServer();
+server.listen(3000)
+
+So with just above piece of code we have created a Server which listens on Port 3000;
+To to handle the logic of incoming requests on our server. Suppose someone is making a request to homepage of our server so we can 
+handle that with function in our createServer function
+const server = http.createServer((req,res)=>{
+res.end("Hello Requester")
+});
+
+so when someone makes a request on our server we can use __res__ and on our res we have a method __end__ to send the data back
+to the client.
+Inside the __res.end()__ we can pass any info that we want to sent to the client
+
+We can check the response of our server at "http://localhost:3000/" as our server is running on Localhost at port 3000
+so once we go to this URL in Browser we will get the response "Hello requester"
+
+and we can also deploy this on our AWS server and using the IP of the server we can get the response back from the server again on AWS.
+
+Here our URL was same so we do not have to do DNS mapping.
+
+We can also add the custom Path in our URL so when some one tries to access that it will show a different Response.
+const http = require("http");
+
+const server = http.createServer(function (req, res) {
+  if(req.url==="/secretData"){
+res.end("There is secretData Don't Tell Anyone 🤫")
+  }
+  res.end("Hello requester");
+});
+
+server.listen(3000);
+
+
+When we create a server using the http module so there are many issues associated with this module. It is kind of like a low level language.
+So instead we use a wrapper round the http module something known as Express to make our Server.
+Express is A FrameWork which is built on Top Of Node JS.
+
+So instead of using http directly as it will very complicated to handle request and response.
+We can use Express which is a wrapper around http module and it is very easy to do thing while using Expresss.
+ 
+ So next we will be using express to createServers not the native node Js Modules.
+
+
+A client is someone who wants to access the files from our server
 
 
 ## NODE - JS  Practice From Basics
