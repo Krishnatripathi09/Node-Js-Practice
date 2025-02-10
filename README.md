@@ -25,7 +25,7 @@ When Ryan has Developed Node JS he had named it __Web Js__ But later he realized
 Initially to create the servers there was this __APACHE__ HTTP Server and other servers and these servers were a blocking Server(***More understanding of this concept below What is Blocing Server etc.*** ).And Ryan Wanted to create a non Blocking server and that's why he created Node JS. The __Advantage__ of Non-Blocking servers is It Can handle multiple Requests With Lesser Number of threads.
 
 # NPM - 
-In 2010 when Node Js was also Being Developed So a Developer from Joyent(Isaac Z. Schlueter) created NPM which is a package manager for Node. It is a Registry where we can add a packages(for eg: Package for Images,Package for Time and Date,Package of Servers etc.). And all these packages are available on npm and it was very significant step in the success of Node Js. Node Js would not be as successful as it is now without _NPM_(It's Pacakage Manager).
+In 2010 when Node Js was also Being Developed So a Developer from Joyent(Isaac Z. Schlueter) created NPM which is a package manager for Node. It is a Registry where we can add  packages(for eg: Package for Images,Package for Time and Date,Package of Servers etc.). And all these packages are available on npm and it was very significant step in the success of Node Js. Node Js would not be as successful as it is now without _NPM_(It's Pacakage Manager).
 
 # Windows Support :-
 Initially when Node JS was built It was only built for Linux and MacOs and in 2011 the support for Windows also 
@@ -972,10 +972,236 @@ So instead of using http directly as it will very complicated to handle request 
 We can use Express which is a wrapper around http module and it is very easy to do thing while using Expresss.
  
  So next we will be using express to createServers not the native node Js Modules.
-
-
 A client is someone who wants to access the files from our server
 
+## DataBase :
+A __Database__ is a collection of data organized according to a conceptual structure describing the characteristics of these data and the relationships among their corresponding entities and it supports one or more applications.
+
+And on Top of our DATABASE there is layer of DBMS.
+A __Database Management System (DBMS)__ is a software system that provides an interface for users and applications to interact with a database efficiently while ensuring data organization, security, and integrity.
+
+__Types Of DB__
+Relational DB :MySql,PostGresql
+NoSQL DB :MongoDB,Cassandra
+In Memory DB:Redis
+Graph DB:Neo4j
+Distributed SQL DB:Cockroach DB
+TimeSeries DB: Influx DB
+OO DB:Db4o
+Graph DB:Neo4j
+Hierarchial DB: IBM IMS
+Network DB: IDMS
+CLoud DB :Amazon RDS
+
+__Relational DataBase__
+A Relational Database is a collection of data organized into structured tables, where relationships between the data are defined through keys, and data integrity is maintained using constraints.
+
+__NoSQL DataBase__
+A NoSQL database is a distributed, non-relational database system that provides flexible schema design, horizontal scalability, and is optimized for large-scale data storage and high-speed access.
+
+**RDBMS**
+ __EF Codd.__ has set 12 rules numbered (0-12) so actually 13 Rules for a DataBase to be called as Relational DataBase.
+
+__MySQL__
+was developed by a scientist named __Michael Widenius__.He was into Relational Databases.The name __"MySql"__ comes from his first Daughter's name, __My__.He also named another database after his second daughter __Max__ calling it __MaxDB__ and he named a fork of MySql after his third Daughter,__Maria__ resulting in __MariaDB__.
+
+
+**PostGreSQL**
+PostgreSQL was created by Michael Stonebraker, who was working on a project called Ingres at the University of California. He later began developing a project called Post Ingres, which eventually evolved into PostgreSQL because it utilized SQL (Structured Query Language) in the project. SQL is essential for interacting with relational databases, as it provides a structured way to query and manage data.
+
+**NoSQL and MongoDB**
+NoSQL databases can be classified into four main types:
+1) Document Databases
+2) Key-Value Databases
+3) Graph Databases
+4) Wide-Column Databases
+5) Multi-Model Databases
+
+MongoDB, a popular NoSQL database, was created in _2009_ around the same time as Node.js. Its a coincidence that both have gained popularity together, as MongoDB works exceptionally well with JSON and JavaScript objects. MongoDB was developed by a company named __10gen__, and the name "MongoDB" comes from the _word_ __humongous__ reflecting its ability to handle massive amounts of data. The company later renamed itself MongoDB Inc., which continues to manage MongoDB today. MongoDB is known for significantly increasing developer productivity.
+
+
+# Difference Between Relational and NoSQL Databases
+
+## 1. **Definition**
+- **Relational Database (RDBMS):** A database that stores structured data in tables with predefined schemas and uses SQL for querying.
+- **NoSQL Database:** A non-relational database that stores unstructured or semi-structured data in various formats such as key-value, document, column-family, or graph-based structures.
+
+## 2. **Data Structure**
+| Feature | Relational Database (RDBMS) | NoSQL Database |
+|---------|----------------------------|---------------|
+| **Data Storage** | Tables with rows & columns | Documents, key-value pairs, graphs, or column stores |
+| **Schema** | Fixed schema (structured) | Schema-less (flexible structure) |
+| **Relationships** | Enforced using foreign keys | Embedded or referenced documents |
+
+## 3. **Scalability & Performance**
+| Feature | Relational Database (RDBMS) | NoSQL Database |
+|---------|----------------------------|---------------|
+| **Scalability** | Vertical scaling (scale-up) | Horizontal scaling (scale-out) |
+| **Read/Write Speed** | Slower for large-scale operations | Faster due to distributed architecture |
+| **Performance Optimization** | Indexing, normalization | Sharding, replication |
+
+## 4. **Query Language**
+| Feature | Relational Database (RDBMS) | NoSQL Database |
+|---------|----------------------------|---------------|
+| **Query Language** | SQL (Structured Query Language) | No standard query language (uses JSON-based queries, APIs) |
+| **Data Manipulation** | Joins and complex queries | Denormalized data for faster reads |
+
+## 5. **ACID vs. BASE Compliance**
+| Feature | Relational Database (RDBMS) | NoSQL Database |
+|---------|----------------------------|---------------|
+| **Consistency Model** | ACID (Atomicity, Consistency, Isolation, Durability) | BASE (Basically Available, Soft state, Eventual consistency) |
+| **Transaction Support** | Strong transaction support | Eventual consistency for scalability |
+
+## 6. **Use Cases**
+| Feature | Relational Database (RDBMS) | NoSQL Database |
+|---------|----------------------------|---------------|
+| **Best For** | Structured data, transactions (banking, e-commerce) | Unstructured, semi-structured, or large-scale data (real-time analytics, IoT, social media) |
+| **Examples** | MySQL, PostgreSQL, Oracle, SQL Server | MongoDB, Cassandra, Redis, Neo4j |
+
+## 7. **When to Use What?**
+- **Use RDBMS** when data integrity, complex relationships, and structured queries are needed.
+- **Use NoSQL** when high scalability, flexibility, and fast data retrieval are priorities.
+
+### **Conclusion**
+Both databases have their advantages and trade-offs. The choice depends on the application requirements, data complexity, and scalability needs.
+
+
+## MongoDB
+MonogDB is a document oriented database program classified as NoSQL.
+It is a cross-platform, document-oriented database program that stores data in JSON-like documents, making it
+a great choice for handling large amounts of semi-structured data.
+
+When we go to MongoDB we can login with our Account and select create a __Cluster__.
+A cluster in MongoDB is a collection of servers that work together to store our data. 
+Think of it as a big storage unit where We can create multiple databases inside it.
+
+__Database in MongoDB__ = A Collection of Collections
+Inside a cluster, We create a database (just like in SQL), but instead of tables, MongoDB uses collections.
+
+__Collections in MongoDB__ = SQL Tables
+Collections hold documents (which are similar to rows in a table, but stored in JSON format).
+
+## SQL vs MongoDB Comparison:
+
+## **1. Structural Differences**
+
+| SQL Term     | MongoDB Equivalent  |
+|-------------|-------------------|
+| Cluster     | Cluster (Same) |
+| Database    | Database (Same) |
+| Table       | Collection |
+| Row         | Document (Stored as JSON) |
+| Column      | Field (Key-Value Pair) |
+| Schema      | Dynamic (Flexible Schema) |
+
+
+Imagine We have a MongoDB cluster for an e-commerce project:
+We create a database called EcommerceDB.
+Inside this database, We create collections like Users, Products, and Orders.
+Inside the Users collection, We store documents (JSON objects) like this:
+
+
+A MongoDB cluster is not just a database—it is a group of servers that store multiple databases. Inside these databases, We have collections (which act like tables), and inside collections, We store documents (which act like rows but in JSON format).
+
+
+__Go to the Mongo DB Wesite__
+__Create a free cluster__
+__create a User__
+__Get the connection string__
+
+To connect to Our Cluster we will need a Connection String
+"mongodb+srv://<Database_Name>:<db_password>@nodelearning.uv4ox.mongodb.net/"
+
+Here we have to replace our db_password with the real Database password.
+To See our DataBase that is what is inside it, it's Collection,Documents etc.
+For that We will use the MongoDB Compass to see our Database.
+So to Do that we have to Install Mongo DB COmpass
+
+After Installing The Mongo DB Compass click (+) Icon for New Connection then Inside the URI give the same URL that we have used in our connection string and also replace the password with original password.
+
+After creating the Cluster we can have Multiple DataBases inside the Cluster.
+
+For Eg: We have created a Cluster named NodeLearning and Inside and then we connected to that cluster using __Connection String__ then we
+have created a Database named __NewDataBase__ inside the Cluster __NodeLearning__. Now we can create a __Collection(Table)__ and insert a document inside that collection. A document is like a JS Object / JSON and we can add a document Directly in our collection.
+
+When we Insert a document inside our collection and do not specify any ID then MongoDB creates a Id Automatically by itself for that Document.
+
+**Connecting our Node Js Application with DataBase**
+Till now we crated the collection and document inside our DataBase Manually but now we can do it through our Node Application and to do that we 
+will need a npm Package  known as MongoDB.
+We can get the Module that is required to connect our app to MongoDB from Npm.
+That  package is known __MongoDB__. It is a connector for node  js and Mongo DB.
+
+Npm is a repository which stores these packages and we can install any package that we need to in our project.
+So whatever package we need we need to install it first in our local then we can use it.
+Earlier we were using "fs" so we did not need to install it as it is a native module, It is Managed by Node.
+But the package MongoDB is not managed by node it is managed by mongoDB and it is available on NPM.
+So we need to install it first in our project then we can use it : Run __npm install mongodb__ or __npm i mongodb__ to install the package.
+(i) is just shorthand for install so we can run of these two commands to install MongoDB
+
+**Installing MongoDb**
+When we are installing a package in our application locally from __npm__ we need to have a __package.json__ in our application which can be generated using __npm init -y__.
+and after creating the __package.json__ file we can run __npm i mongodb__ to install mongodb locally in our project.
+
+So when we ran the command __npm i mongodb__ then the request went to npm js server it fetched the code(package) named mongodb 
+and it put that package in our __node_modules__ folder.
+And now if we require __mongodb__ in our project it will work and will not throw any error.
+
+It has also generated the file "pacakage.lock.json" and node_modules folder in our app.
+There might be some files which will be showing error in our node_modules folder
+so we can create a __.gitginore__ file and inside that we write node_modules so that it will not be scheduled for git push and git will ignore that file for any errors.
+
+## Connecting to Database :
+So to connect to our DataBAse we have create a file __database.js__ and inside that we have imported MongoClient as a named import 
+const { MongoClient } = require("mongodb");
+const url =
+  "mongodb+srv://NodeUser:NodePassWba678@nodelearning1.mngbs.mongodb.net/";
+  const client = new MongoClient(url)
+
+And then inside the url we have passed the DBConnection URL that we have created using our UserName and Password.
+And then we have created a new instance of MongoClient using __new__ Keyword and passed our url into it.
+
+Next we have to create a variable named dbName inside which we will pass the name of our DataBase(NewDataBase)
+const dbName = "NewDataBase";
+
+Next we have to create a async function inside which we will use client.connect method to connect to our DataBase.
+This method is a promise so we have to use async keyword before the function name.
+
+
+const client = new MongoClient(url);
+
+const dbName = "NewDataBase";
+
+async function main() {
+  await client.connect();
+  console.log("Connection to DB is SuccessFul :-");
+  const db = client.db(dbName);
+  const collection = db.collection("User");
+
+  const findResult = await collection.find({})
+  console.log(findResult);
+  return "Connected SuccessFully to DataBase : 🙂";
+}
+
+main()
+  .then(console.log)
+  .catch(console.error)
+  .finally(() => client.close());
+
+ once we write tha above code and pass it the correct parameters into to it and run the file we will see "Connected successfully to server" and done.
+ If it could not connect to server due to some issue it will throw error and that error will be logged to console.
+
+ **Finding the Data**
+ so when we have connected to DataBase  we can use .find
+ const findResult = await collection.find({}).toArray();
+  console.log("Found Data =====> "findResult);
+
+ Now we can also get the data from the Database that we had created manually using find(.find) method on our Collection(Table)
+ and then we have to convert that data to Array because If we do just __find__ then it will not return the data beacuse find method is just a 
+ cursor which is pointing to the data so to get the Actual data we have to convert it to an Array.
+ and then we can see the actual data when we console.log() It.
+
+ A cursor(only .find()) is like a stream of data. If you log it directly, you won't see the actual data but an object reference to the data. You need to extract the documents using .toArray() methid.
 
 ## NODE - JS  Practice From Basics
 

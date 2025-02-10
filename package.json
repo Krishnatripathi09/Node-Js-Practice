@@ -1,0 +1,15 @@
+{
+  "name": "node-learnings-beginner",
+  "version": "1.0.0",
+  "description": "***Any Application That can be written in JS will eventually be written in JS*** - Jeff Atwood-2007 (Founder-StackOverflow)",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^6.13.0"
+  }
+}
