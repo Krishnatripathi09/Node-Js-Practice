@@ -1122,7 +1122,7 @@ After Installing The Mongo DB Compass click (+) Icon for New Connection then Ins
 After creating the Cluster we can have Multiple DataBases inside the Cluster.
 
 For Eg: We have created a Cluster named NodeLearning and Inside and then we connected to that cluster using __Connection String__ then we
-have created a Database named __NewDataBase__ inside the Cluster __NodeLearning__. Now we can create a __Collection(Table)__ and insert a document inside that collection. A document is like a JS Object / JSON and we can add a document Directly in our collection.
+have created a Database named __NewDataBase__ inside the Cluster __NodeLearning__. Now we can create a __Collection(Table)__ and insert a __document__ inside that collection. A _document_ is like a JS Object / JSON and we can add a document Directly in our collection.
 
 When we Insert a document inside our collection and do not specify any ID then MongoDB creates a Id Automatically by itself for that Document.
 
@@ -1152,6 +1152,14 @@ There might be some files which will be showing error in our node_modules folder
 so we can create a __.gitginore__ file and inside that we write node_modules so that it will not be scheduled for git push and git will ignore that file for any errors.
 
 ## Connecting to Database :
+When installing the mongodb package in our App we can go to "__https://www.npmjs.com/package/__" and search for mongodb package
+and after installing we can connect to DB by using the connection code in mongo db Doc. The link for which is available on 
+npm server (https://www.npmjs.com/package/mongodb)
+ adn then we have to go the API of the version we have installed in our project. To check the version in our project we can run 
+ (npm list mongodb) and it will show the correct version. and from there we can get connection code to connect our app to 
+ DataBase.
+
+
 So to connect to our DataBAse we have create a file __database.js__ and inside that we have imported MongoClient as a named import 
 const { MongoClient } = require("mongodb");
 const url =
@@ -1201,9 +1209,36 @@ main()
  cursor which is pointing to the data so to get the Actual data we have to convert it to an Array.
  and then we can see the actual data when we console.log() It.
 
- A cursor(only .find()) is like a stream of data. If you log it directly, you won't see the actual data but an object reference to the data. You need to extract the documents using .toArray() methid.
+ A cursor(only .find()) is like a stream of data. If you log it directly, you won't see the actual data but an object reference to the data. You need to extract the documents using .toArray() method.
 
+We can Also Use insertOne method on our collection to insert the data into our collection.
+
+For eg:
+
+ const data = {
+    firstName: "Tibbhi",
+    lastName: "Titthi",
+    city: "Basti",
+    PhoneNumber: "+919284640248",
+  };
+
+  const insertResult = await collection.insertOne(data)
+console.log(insertResult)
+
+So while doing Insert operation we don't have to specify any id as Mongo will automatically create the Id field.
+
+We can also update our document(record) updateOne method available in mongo so like in below example i have used updateOne method on our collection and set the lastName ="Titthi" field to lastName = "BillPoi"
+
+ const updateResult = await collection.updateOne(
+    { lastName: "Titthi" },
+    { $set: { lastName: "BillPoi" } }
+  );
+  console.log(updateResult);
+
+  The __updateOne__ method is coming from our mongodb driver that we have installed in our Project.
 ## NODE - JS  Practice From Basics
+
+
 
 Created a Node Js Server which listens on port (3000)
 "const http = require("http");

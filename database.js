@@ -14,14 +14,20 @@ async function main() {
   const collection = db.collection("User");
 
   const data = {
-    firstName: "Tibbhi",
-    lastName: "Titthi",
-    city: "Basti",
-    PhoneNumber: "+919284640248",
+    firstName: "Infinity",
+    lastName: "Infinity",
+    city: "Infinity",
+    PhoneNumber: "+853563221222332222##",
   };
 
-  const insertResult = await collection.insertOne(data)
-console.log(insertResult)
+   const insertResult = await collection.insertOne(data);
+   console.log(insertResult);
+
+    const updateResult = await collection.updateOne(
+      { lastName: "Titthi" },
+      { $set: { lastName: "BillPoi" } }
+    );
+    console.log(updateResult);
 
   const findResult = await collection.find({}).toArray();
   console.log("Found Data =====> ", findResult);
