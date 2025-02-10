@@ -20,14 +20,18 @@ async function main() {
     PhoneNumber: "+853563221222332222##",
   };
 
-   const insertResult = await collection.insertOne(data);
-   console.log(insertResult);
+  const insertResult = await collection.insertOne(data);
+  console.log(insertResult);
 
-    const updateResult = await collection.updateOne(
-      { lastName: "Titthi" },
-      { $set: { lastName: "BillPoi" } }
-    );
-    console.log(updateResult);
+  const updateResult = await collection.updateOne(
+    { lastName: "Titthi" },
+    { $set: { lastName: "BillPoi" } }
+  );
+  console.log(updateResult);
+  const deletedRes = await collection.deleteOne({
+    PhoneNumber: "+853563221222332222##",
+  });
+  console.log("Deleted Document===> ", deletedRes);
 
   const findResult = await collection.find({}).toArray();
   console.log("Found Data =====> ", findResult);
