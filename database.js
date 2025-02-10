@@ -28,10 +28,14 @@ async function main() {
     { $set: { lastName: "BillPoi" } }
   );
   console.log(updateResult);
+
   const deletedRes = await collection.deleteOne({
     PhoneNumber: "+853563221222332222##",
   });
   console.log("Deleted Document===> ", deletedRes);
+
+  const countResult = await collection.countDocuments({});
+  console.log("Count of Results in User Collection====>", countResult);
 
   const findResult = await collection.find({}).toArray();
   console.log("Found Data =====> ", findResult);
