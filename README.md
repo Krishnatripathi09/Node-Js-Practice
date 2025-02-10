@@ -1237,7 +1237,22 @@ We can also update our document(record) updateOne method available in mongo so l
 
   The __updateOne__ method is coming from our mongodb driver that we have installed in our Project.
 
-  
+  We can also use countDocuments method on our collection to get the count of Records on our User Collection.
+
+    const countResult = await collection.countDocuments({});
+  console.log("Count of Results in User Collection====>", countResult);
+  So we can see that countResult is giving us the count of all the records in our User
+
+We can also filter our collection using a particular field value  on our collection to get a particular record with that filter
+for eg: 
+const result = await collection.find({lastName:"BillPoi"}).toArray();
+console.log("Result is=====>",result)
+So we can see that result is giving us the record with lastName = "BillPoi" from
+our User Collection.
+
+But In our project we are not going to use 'mongodb' default library but we will use 'mongoose' instead.
+mongodb is not a native library of node js but it is a native library of mongodb.
+
 ## NODE - JS  Practice From Basics
 
 
