@@ -54,22 +54,22 @@ For Eg: When a client using  Internet write's Google.com and Hit's enter in Brow
 - Chrome's JavaScript engine is called V8. It's a high-performance engine that compiles JavaScript And it is written in C++.
 To Confirm this go-to Browser and Search __v8 Github__ if you click on the first link of v8 ( https://github.com/v8/v8 )
 and when you scroll down to Language Section you will see that 78% of code is written in C++ for JS Engine. And Other Languages are also there like JS itself, pyhton, TypeScript etc.
-![Languages Used to Write V8 Engine ](./images/image.png)
+![Languages Used to Write V8 Engine ](/image.png)
 We can also find the Reference for this at v8 Engines Official Website (https://v8.dev/)
 ***V8 can be embedded in Any C++ Application*** - So the creator of Node just embedded this v8 engine into a c++ Application and we call it Node Js.
 
-![JS Engine Diagram](./images/Js-Engine.jpeg)
+![JS Engine Diagram](/Js-Engine.jpeg)
 
 Node Js has V8 Engine + Other __SuperPowers__(will continue Below later) which are API's On server.So V8 Engine's only Job is to execute JS on server. But to get more Features Node JS has other powers along with v8 which is why it's called JS RunTime.
 
-![Lnaguages used in Node Js](./images/image-1.png)
+![Lnaguages used in Node Js](/image-1.png)
 
 # Why v8 is a C++ Code.
 Our Computers Understand's Binary Code (0 and 1's) and on top of Binary code we have Assembly Code and on Top of Assembly code we have Machine Code and on Top of Machine Code we have High Level Code (C++ etc.) On Top of high level language we have JS. so this JS engine takes this JS code and converts it into Machine Code (which is also known as low Level Code).
-![Machine Code](./images/image-2.png) 
+![Machine Code](/image-2.png) 
 
  And this is the JOB of our JS engine to convert the Code into Machine Understandable Code :
- ![V8 Engine Conversion Flow](./images/image-3.png)
+ ![V8 Engine Conversion Flow](/image-3.png)
 
 If we go-to Repository of Node we will find v8 as an Dependency of Node. (https://github.com/nodejs/node/tree/main/deps/v8)
 
@@ -249,7 +249,7 @@ for eg:
  here we have a anonymous function and we are immediately calling it {()}. 
  So whatever code we write inside a module and when we __require__ that module node Js will take that code and will wrap it inside a function(IIFE) and then execute it. 
 
-[IIFE](./images/IIFE.jpeg)
+[IIFE](/IIFE.jpeg)
 
 We need an IIFE Because:
 1) It Immediately invokes the code.
@@ -297,7 +297,7 @@ https://github.com/nodejs/node/tree/main/lib/internal/modules
 
 
 ## LIB-UV and Async 
-[LIB-UV](./images/Lib-UV.png)
+[LIB-UV](/Lib-UV.png)
 
 Node-Js has an event-driven architecture capable of asynchronous I/O.
 The event-driven architecture is based on the libuv library, which is a cross-platform library that provides
@@ -305,7 +305,7 @@ a set of APIs for asynchronous I/O operations.
 
  *** How Synchronous Code is executed in JS ***
 
- [Sync Code Execution example](./images//Sync%20code%20execution%20in%20Js.jpeg)
+ [Sync Code Execution example](/Sync%20code%20execution%20in%20Js.jpeg)
 As we know JS is a single threaded language so it just has one call Stack.So whatever code we write in JS is executed in Call Stack.
 JS Engine also has a Memory Heap whenever we have a variable (a=45678) so memory heap will allocate a place for variable __a__ and it will put the value of variable __a__ inside it. So Memory heap will store all the variables or functions that we have inside memory heap.
 
@@ -318,37 +318,37 @@ So Once we call our function in the next line with variable __c__ One more Funct
 So whatever we have in our Function Execution Context (FUC) will also Run and it will Run in Synchronous way Line by Line.
 
 And result of our __a*b__ will stored in the memory Heap.Now the next line will be executed (return result) so whatever is there in memory heap of (FEC) will be returned back from the FEC(Function execution context) to the GEC(Global Execution Context).
-[FEC to GEC](./images/FC_to_GEC.jpeg)
+[FEC to GEC](/FC_to_GEC.jpeg)
 
 And Once the execution of Function Execution Context is finished it is removed from the CallStack
-[FEC Removal from CallStack](./images/FEC_Removal.jpeg)
+[FEC Removal from CallStack](/FEC_Removal.jpeg)
 
 So the GEC(Global Execution context) has left at the the Line where the function was called will again Start Running and as multiplyFn has returned the value of result so the ressult will stored in c and that will again stored in the Memory heap where C was stored.
 So Once the whole code is executed the GEC will also go from the call Stack and CallStack will becomes empty.
-[CallStack Empty](./images/CallStack_Empty.jpeg)
+[CallStack Empty](/CallStack_Empty.jpeg)
 
 
  *** How Asynchronous Code is executed in JS ***
-[Async_Execution](./images/Async_Execution.jpeg)
+[Async_Execution](/Async_Execution.jpeg)
 As we know JS is a synchrounus single threaded language and it cannot perform Asynchronous operations by itself So Here Node comes into 
 Picture and it gives JS Engine these super powers (kind of ) to interact with system and do that.
-[Node_Gives_Powers_to_JS](./images/Node_Gives_Powers_to_JS.jpeg)
+[Node_Gives_Powers_to_JS](/Node_Gives_Powers_to_JS.jpeg)
  
 So suppose we have a file which is on the server and JS engine wants to Read that File so JS engine needs to talk to OS to know the location of 
 the file and all these location information will come from the OS so JS engine will have to contact the OS and get the location and data from the file. Now JS Engine does not have any capability to connect to database it will need some powers to connect to database.
 Similary It also does not have the concept of time it will need to connect to OS to get the time info as operating system manages time.
 So JS Engine will need some powers to get access to all these features and these powers are given to JS by Node-JS and Node JS is doing that by a library __LibUV__. LibUV is a library that provides a set of APIs for asynchronous I/O operations. So whatever task JS Engine needs to do which it cannot directly do it,It will offload that task to Lib-UV and Lib-UV will perform that task and will get back the Response and will give it back to V8 engine.
 
-[Liv-Uv](./images/Lib-Uv.jpeg)
+[Liv-Uv](/Lib-Uv.jpeg)
 
 **How Liv-Uv Performs Asynchronous Operation**
-[LIV-UV Async](./images/LIV-UV%20Async.jpeg)
+[LIV-UV Async](/LIV-UV%20Async.jpeg)
 
 With Lib-Uv Async I/O is made simple.
 So whenever the v8 engine sees a API call or file read Operation the v8 Engine will offload that task to the Lib-UV and Lib-Uv will complete that task and will give the result back to V8 Engine. 
 
 ***Execution of code inside Lib-UV***
-![Code execution Inside Lib-UV](<Execution Inside  Liv-Uv.jpeg>) 
+[Code execution Inside Lib-UV](/Execution_Inside_Liv_Uv.jpeg) 
 
 So here we will how mixture of Synchronous and Asynchronous Code is implemented in JS
 
@@ -454,8 +454,8 @@ __Parsing__
 So our Tokens are converted into AST in this STEP.This step is also known as __Parsing__.
 So Below is the diagram for how an AST is created from our Code.
 Site where you can find How AST looks (https://astexplorer.net/)
-                                       [AST DiaGram](./images/AST%20.png)
-                                       [AST2 Diagram](./images/AST2.png)
+                                       [AST DiaGram](/AST%20.png)
+                                       [AST2 Diagram](/AST2.png)
 
 While Doing the Lexical Analysis when JS Engine is not able to break our code into Tokens it throws the error __Unexpected Token__ 
 for eg: if we have declared a variable a like __var a = ;__ here it will throw __Unexpected Token__ error because the variable is not assigned with a value yet and it was not expecting the (=) token.
@@ -492,8 +492,7 @@ And also at the same time all these things are happening it also has __GarBage C
 
 Earlier the Compiler that was used in V8 was Crank Shaft But Now it is Removed and we have Turbo Fan Compiler.
 
-[V8-Engine-Architecture]
-(/images/V8-Architecture.jpeg)
+[V8-Engine-Architecture](/V8-Architecture.jpeg)
 
 https://v8.dev/ Referenece for all the above Explanation
 https://v8.dev/docs/ignition Ignit
@@ -539,12 +538,12 @@ So Event loop Run's in this manner and at the same time it also keep's an eye on
 So Here Event Loop Also Follow's an Inside Cycle which has
 __Process.nextTick()__ and __Promise CallBacks__( suppose there is a promise and that promise is resolved so there is callback that needs to be executed.)
 
-[Event-Loop](./images/Event-Loop.jpeg)
+[Event-Loop](./Event-Loop.jpeg)
 
 These 2 Inside cycles will be executed before Every Phase. So when event loop starts it will first go to _process.nextTick()_ and if there is any process.nextTick then it will execute that and then it will go to _promise CallBacks_ to see if there is any promise callBack waiting then it will execute that and then it will go to Timer Phase And Once it excutes Timer Phase it will again go to inside cycle and will go to _process.nextTick()_ and if there is any _process.nextTick_ then it will execute that and then it will go to _promise CallBacks_ to see if there is any promise callBack waiting then it will execute that and then it will go to next phase that is _Check Phase_ and will execute that and then again it will go to _inside cycle_ and then after execution of inside cycle and _execute_ Them.
 _And This is How It Keeps Running._
 All these different phases of Event Loop are maintained in Different Queues in CallBack Queue.
-[Event-Loop-Working](./images/Event-Loop-Working.jpeg)
+[Event-Loop-Working](/Event-Loop-Working.jpeg)
 
 **Example-1**
 const a =100;
@@ -562,7 +561,7 @@ function printA(){
 printA();
 console.log("Last Line Of the File.")
 
-[Event-Loop-Code-Execution](./images/Event-Loop-Code-Execution.png)
+[Event-Loop-Code-Execution](/Event-Loop-Code-Execution.png)
 
 The code begins by declaring a constant a with a value of 100
 **const a = 100;**
@@ -624,7 +623,7 @@ so the Call back for promise.resolve() will be scheduled in the Queue.
 And Code moves to next Line which is a file Read operation so it will also take time so the code moves to next line so 
 setTimeout() will be scheduled in the timers queue and as we have 0 timer it will be executed immediately and as we have a callback function 
 c so the callback function will be scheduled in another Queue we can call it as __Timer Queue__.
-[Code_Execution](./images/Code_Execution_Inside.jpeg)
+[Code_Execution](/Code_Execution_Inside.jpeg)
 
 Now the code execution will move to next line which is process.nextTick() so it will also not wait for anything and it will go inside it's Queue.
 
@@ -874,7 +873,7 @@ and can send appropriate response accordingly what the user is requesting.
 When someone Says he has purchased a Server It means he has purchased a Remote Computer which is Running a software Program.
 
 __Client-Server Architecture__
-[Client-Server-Architecture](./images/Client-Server-Architecture.jpeg)
+[Client-Server-Architecture](/Client-Server-Architecture.jpeg)
 The term "client" refers to someone accessing a server. Imagine a user sitting at a computer wanting to access a file from a server. For this, the client needs to open a socket connection (not to be confused with WebSocket). Every client has an IP
 address, and every server has an IP address as well. The client could be a web browser.
 
@@ -1163,7 +1162,7 @@ npm server (https://www.npmjs.com/package/mongodb)
 So to connect to our DataBAse we have create a file __database.js__ and inside that we have imported MongoClient as a named import 
 const { MongoClient } = require("mongodb");
 const url =
-  "mongodb+srv://NodeUser:NodePassWba678@nodelearning1.mngbs.mongodb.net/";
+  "mongodb+srv://userName:password@nodelearning1.mngbs.mongodb.net/";
   const client = new MongoClient(url)
 
 And then inside the url we have passed the DBConnection URL that we have created using our UserName and Password.
@@ -1253,10 +1252,8 @@ our User Collection.
 But In our project we are not going to use 'mongodb' default library but we will use 'mongoose' instead.
 mongodb is not a native library of node js but it is a native library of mongodb.
 
+
 ## NODE - JS  Practice From Basics
-
-
-
 Created a Node Js Server which listens on port (3000)
 "const http = require("http");
 
