@@ -87,7 +87,7 @@ Inside the REPL we can write any JS code.
 # Global Objects in Node-JS
 Global is an one of the superpowers which is given to us by Node-Js.(It is not given us by v8 Engine)
 Global Objects are the Objects that are available in all Scope and we can can use them anywhere in Project. They provide core functionalities without needed to require them explicitly in our Code.
-
+```javascript
 <ref *1> Object [global] {
   global: [Circular *1],formation.
   clearImmediate: [Function: clearImmediate],
@@ -108,6 +108,7 @@ Global Objects are the Objects that are available in all Scope and we can can us
   fetch: [Function: fetch],
   crypto: [Getter]
 }
+```
 
 Global Objects and functions In Node.js
 Window,this,self,frames all these keywords refer to Global Object in Browser's.
@@ -127,10 +128,12 @@ For eg: In our sum.js we have a function to calculate the sum of 2 numbers but w
 and use calcuolateSum function directly instead to use them first we have to export them in our sum module then we can import them in our
 app.js file
 For eg:
+```javascript
 function calculateSum(a,b){
     const sum =a+b;
 console.log(sum)
 }
+```
 
 module.exports =calculateSum; ***First we have to export the function calculateSum in our sum.js file then we have to import it in the file we want to use it  ***
 for eg:- 
@@ -139,6 +142,7 @@ const calculateSum =require('./sum.js') //***Here we have imported the function 
 
 If we had multiple things to import in our Sum.js file like a variable x and a function calculateSum then we can export it as an Object.
 for eg:-
+```javascript
 var a=120;
 function calculateSum(a,b){
     const sum =a+b;
@@ -148,18 +152,21 @@ module.exports={
     a:a,
     calculateSum:calculateSum
 }//***when exporting multiple things at once we can export it as an Object.***
-
+```
 Now again to use this export in our app.js we can import it as 
 const obj = require("./sum.js") ***As we have exported our variables snd functions as an Object we can access them in an Object***
 for Eg:
 ***we can use them as***
+```javascript
 obj.calculateSum(a,b) and also 
 obj.a
-
+```
 we can also do console.log(obj.x)
 
 We Can also directly destructure our objects directly while exporting and then we use them without writing Obj
-for eg:- const {calculateSum,x} =require("./sum.js") // imported them directly in our app.js with Object destructuring
+for eg:- 
+```javascript
+const {calculateSum,x} =require("./sum.js") // imported them directly in our app.js with Object destructuring
 
 and then we can use them without obj
 calculateSum(a,b) and also 
@@ -170,22 +177,25 @@ module.exports={
     a
     calculateSum
 }
-
+```
 while importing a module using require we can avoid writing the extension for the file as It will assume that it is (.js) file
 for eg: require("./sum") // ***here we do not need to write the extension.***
 
 
 These type Of Import and Export of modules is Known as Common JS Modules(CEJS). There is one more type of import and export which is known as ES Modules
 By default In our app we have commonjs modules in but when we want to use ES Modules we have to create a __package.json__ file and in that we have to specify type as module;
+```javascript
 {
     type:"module"
 } 
-
+```
 
 then we can use import and export directly instead of using require and module.exports
 for eg: for importing we use
+```javascript
 import {x,calculateSum} from "./sum.js"
 and for exporting we can use export var x=10 or export function (){}
+```
 
 When commonJs requires the modules in a synchronous way means if we require any file then unless and until the file is not loaded it will not move to next file.
 But ES Modules are loaded in an asynchronous way means if we import any file then it will not wait
@@ -210,15 +220,19 @@ and which we are exporting and then importing separately in our app.js but we ca
 and inside that we can import our sum and multiply functions from there files.
 And then we can export them as from index.js file as One 
 for eg: 
+```javascript
 const { calculateSum } = require("./sum");
 const { calculateMultiply } = require("./multiply");
 
 module.exports = { calculateSum, calculateMultiply };
+```
 
 Here we have imported calculateSum, and calculateMultiply from there files and then we have exported them as a centralized export
 
 Similarly we can import them in our App.js directly as folder 
-for eg: const { x, calculateSum, calculateMultiply } = require("./calculate");
+for eg: 
+```javascript
+const { x, calculateSum, calculateMultiply } = require("./calculate");
 
 And then we can directly use them.
 var a = 10;
@@ -227,16 +241,17 @@ calculateMultiply(a, b);
 
 calculateSum(a, b);
 console.log(x);
-
+```
 And like this we can import a folder as a module .\
 ## Importing a json file
 We can also use require to import a json file for eg: we have a data.json file which has data 
+```javascript
 {
     "name":"Krishna",
     "age":25,
     "city":"Pune"
 } 
-
+```
 then we can import it in our App.js file as ***const data = require("./data.json");***
 and we can do __console.log(data)__ to view the data in the file
 
@@ -267,10 +282,11 @@ All the code that we write inside a module will have module and require function
 
 Suppose we have module /xyz.js so node Js take our code wraps it inside a function(IIFE) and then it also add module and require functions.
 for eg:-
-(fucntion(module,require){
+```javascript
+(function(module,require){
 /xyz.js  // Code here 
 })();
-
+```
 And after wrappping it inside IIFE it will pass it to V8 Engine then V8 Engine will execute that code and the variables and functions inside the IIFE will not interfere with other code.
 
 __5 Step Mechanism Of Require__
@@ -366,7 +382,7 @@ When JavaScript encounters asynchronous operations (e.g., setTimeout(), API call
 These operations do not block the Call Stack. Instead, they are delegated to the Libuv (or Web APIs), allowing the synchronous code to continue executing.
 
 In our Async File We Have Below Code:
-
+```javascript
 const fs = require("node:fs");
 const https = require("https");
 
@@ -401,12 +417,13 @@ function multiplyFn(x, y) {
 var c = multiplyFn(a, b);
 
 console.log("Multiplication result is : ", c);
-
+```
 So here Code will start Executing Line By Line so first Our require() functions will be resolved then it print "Hello World" to the console
 then it will store our variables in the Memory Heap then it move to the next line and it sees there is readFile operation but in synchronous way
 __readFileSync()__  then it will offload that to Lib-UV  and it will block the main thread till it reads the file data and once it reads the file it will move to next line and print __"This will execute only after file read"__ to the console next it encounters a API call so it will offload that to LibUV and will move to Execution of next line then again it encounters the SetTimeOut Method then it will again offload that to Lib-Uv and move to the next line and it again sees a File Read opeartion which is a Asynchronous then again it will offload that to Lib-UV and moves to execution of the next line then it sees a Function so it will store that function in the Memory Heap and again will move to the next line and there it sees that function is called here so it again Created a Function Execution context and will start exctuing the function and after execution it will immediately return The Result and that result will again Printed to the Console.Now here till then LibUb will have completed the File Read operation till then so it will print the result of the File opearation to Dev Console and then again it would have finished API call which would take more time than file read opeartion so it will print the Data for API call to Dev Console and then it will print the Result of SetTimeOut Function to the console.
 
 ## Blocking Execution (Main Thread Blockded)
+```javascript
 const crypto = require("node:crypto");
 
 console.log("Hello World");
@@ -438,7 +455,7 @@ function multiplyFn(x, y) {
 var c = multiplyFn(a, b);
 
 console.log("Multiplication result is : ", c);
-
+```
 Here Above we have a function on cyrpto module (pbkdf2Sync) which blocks the main thread till the execution of the task is completed.The more the number of iterations  the more time it will take to complete the execution of the task and till the task is  completed it will not move to the execution of the next line of code.
 
 Here the setTimeOut will only be called after 0ms once the call Stack of main thread is Empty. 
@@ -507,6 +524,8 @@ In Lib-Uv There are 3 major Components
 3) Thread Pool
 Now we Know whatever code we write in JS File It is being run in V8 Engine But Asynchronous Tasks are offloaded to Lib UV.The Asynchronous I/O (Non Blocking I/O) is only possible in Node JS Only because of Lib-UV.<!-- Async / Non Blocking I/O Image !-->
 Now let's Consider an Example How SYNC and ASYNC Code is Run in Node JS.
+
+```javascript
 const fs = require("node:fs");// First Modules will be resolved
 const https = require("https");// 
 console.log("Hello World");// Then this code will Run
@@ -517,10 +536,12 @@ setTimeout(() => {  console.log("setTimeout called after 5 seconds");}, 5000);
 //Synchronousfunction multiplyFn(x, y) {  const result = a * b;  return result;}
 var c = multiplyFn(a, b);
 console.log("Multiplication result is : ", c);
+```
 Whenver the __JS Engine__ is executing Some Piece of code then all the Async functions that were given to __Lib-Uv__ for execution have to wait in __CallBack Queue__ once there Execution is Completed by Lib-Uv.As in Our case we have API calls,SetTimeOut Function so once there execution is completed by Lib-Uv they have to go back to Call-Stack to complete the synchronous code execution but if JS Engine is Busy with another task then these tasks will be Waiting in CallBack Queue of Lib-UV till JS Js Engine is empty.So In CallBack Queue there is Separate Queue for Timers there is separate Queue for API call's.
 So once-the  __Call-Stack__ of JS engine is empty then only the further execution of Code from Lib-Uv Call Back queue will be done.
 And to Achieve the execution of tasks waiting in CallBack Queue in CallStack We have Event Loop.The Job of __Event-Loop__ is to keep Checking __CallStack__ and CallBack Queue and if there are some tasks waiting in Call-Back Queue it checks the Call-Stack of JS Engine and  as soon as Call Stack is Empty It pushes the tasks waiting in Call Back Queue to Call Stack.For eg: When API call is completed in our code then the callback function will wait in the CallBack Queue and as soon as the __CallStack__ is Empty the Event loop will take the task from call Back Queue and will push it into Call Stack and v8 engine will Execute that task.
 Suppose if there is a Race Condition when all the Async tasks are completed at the Same time and they are waiting in CallBack Queue for there Execution So Here in this Case __Event Loop__ have to Prioritize which code to be first implemented in Call Stack.
+
 *** Working of Event Loop ***
 Event Loop Run's in a Loop and it has different Phases in the Loop.There are 4 Major phases in Event Loop:
 1) Timer
@@ -546,6 +567,7 @@ All these different phases of Event Loop are maintained in Different Queues in C
 [Event-Loop-Working](/Event-Loop-Working.jpeg)
 
 **Example-1**
+```javascript
 const a =100;
 setImmediate(()=>console.log("setImmediate));
 
@@ -560,7 +582,7 @@ function printA(){
 }
 printA();
 console.log("Last Line Of the File.")
-
+```
 [Event-Loop-Code-Execution](/Event-Loop-Code-Execution.png)
 
 The code begins by declaring a constant a with a value of 100
@@ -569,6 +591,7 @@ Next, the setImmediate function is encountered. This function is asynchronous, s
 Moving on, the code encounters the setTimeout function with callback function B and a delay of 0 milliseconds. Function B is added to the timers queue, where it waits for execution, as V8 is still busy with the current task.
 
 The function printA() is called next, which outputs a = 100 to the console:
+```javascript
 function printA() {
  console.log("a=", a);
 }
@@ -576,11 +599,12 @@ printA();
 Following this, the console logs "Last line of the file":
 
 console.log("Last line of the file.");
+```
 At this point, all synchronous code has been executed, and the call stack is now empty. Now, the event loop begins its cycle. It first checks for any pending process.nextTick callbacks, but since there are none, it moves to the timers phase. Here, it finds B in the timers queue and executes it, printing "Timer expired" to the console. B is then removed from the call stack.
 
 Next, the event loop moves to the poll phase. Finding nothing in the poll queue, it proceeds to the check phase, where A is waiting. The event loop then pushes A to the call stack, and it is executed, printing "setImmediate" to the console. Meanwhile, libuv finishes reading the file, and the associated callback function C waits in the poll queue. The event loop eventually picks up C, executes it, and "File Reading CB" is printed to the console. C is then removed from the call stack, leaving the stack empty once more.
 Thus, the final output of the code is:
-
+```javascript
 a = 100
 Last line of the file.
 Timer expired
@@ -588,9 +612,9 @@ setImmediate//
 File Reading CB//
 This demonstrates how asynchronous tasks are managed in Node.js, with the
 event loop ensuring they are executed at the appropriate time.
-
+```
 Here Even If the File Read operation Happens in the poll phase and setImmediate happens in Check phase the File Reading DB will be printed last because it will be completed in the next cycle of event Loop as File Read Operation is still not completed till the setImmediate function is printed to the console.
-
+```javascript
 **Example-2**
 
 const fs = require("fs");
@@ -614,7 +638,7 @@ function printA() {
 
 printA();
 console.log("Last line of the file.");
-
+```
 Here in this Code: -
 
 As soon as the code execution starts setImmediate function will wait in a CallBack Queue of setImmediate().
@@ -646,6 +670,7 @@ So next the Event Loop will find that Call-Stack is Empty and it will quickly pu
 So next it will print __File Reading CB__ to the console and it will be removed from the
 CallBack Queue as well as call Stack.
 
+```javascript
 ## Code Output
 a = 100
 Last line of the file.
@@ -654,13 +679,13 @@ promise
 Timer expired
 setImmediate
 File Reading CB
-
+```
 
 ***Event Loop Waits at The poll Phase** 
 When event loop is Idle that is it does not had any work to do(Like in above example when all the execution was completed and File read Operation is still going on) so in that Idle Phase it waits at the poll Phase. 
 
 ***Example for Event loop Waiting***
-
+```javascript
 const fs = require("fs");
 
 setImmediate(() => console.log("setImmediate"));
@@ -681,7 +706,9 @@ fs.readFile("./file.txt", "utf8", () => {
 process.nextTick(() => console.log("nextTick"));
 
 console.log("Last line of the file.");
+```
 
+```javascript
 Sequence Of Execution:-
 
 ---Last Line Of the File,
@@ -694,8 +721,10 @@ Sequence Of Execution:-
 --2nd nextTick
 --2nd Set Immediate
 --2ndTimer
+```
 
 *** Code Example ***
+```javascript
 const fs = require("fs");
 
 setImmediate(() => console.log("setImmediate"));
@@ -713,9 +742,7 @@ process.nextTick(() => {
 });
 
 console.log("Last line of the file.");
-
-
-
+```
 
 The code begins by importing the fs module:
 const fs = require("fs");
@@ -749,6 +776,7 @@ setImmediate
 File reading CB
 
 **Snchronous Code Execution:**
+```javascript
 const fs = require("fs"); Imports the fs module.
 setImmediate(() => console.log("setImmediate")); Schedules callback A.
 setTimeout(() => console.log("Timer expired"), 0); Schedules callback B.
@@ -764,6 +792,7 @@ console.log("File reading CB"); Logs "File reading CB" .
 process.nextTick(() => console.log("Porcess.nextTick")); Schedules callback
 F.
 console.log("Last line of the file."); Logs "Last line of the file." 
+```
 
 **Microtasks:**
 The microtasks queue is processed first, so callbacks F (from process.nextTick ) and the Promise callback are executed in this order.
@@ -806,8 +835,9 @@ We can also change the __SIZE of Thread POOL__ by setting the __UV_THREADPOOL_SI
 for eg: __process.env.UV_THREADPOOL_SIZE = 8__;
 
  __IS Node JS Single Threaded or Multi-Threaded ?__.
-then ask  when? beacuse it depends what type of code we want to run as When we are dealing with synchronous code then Node JS is Single Threaded but if we are dealing with Asynchronous tasks then Lib-UV utilizes LibUV's __THREAD-POOL__ making it multi-Threaded.
+then ask  when? beacuse it depends what type of code we want to run as When we are dealing with synchronous code then Node JS is Single Threaded but if we are dealing with Asynchronous tasks then Node JS utilizes LibUV's __THREAD-POOL__ making it multi-Threaded.
 
+```javascript
 const crypto = require("node:crypto");
 const fs = require("fs");
 // Async Function
@@ -834,7 +864,7 @@ crypto.pbkdf2("password", "salt", 500000, 50, "sha512", (err, key) => {
 crypto.pbkdf2("password", "salt", 500000, 50, "sha512", (err, key) => {
   console.log(" 5th: - Fifth Key is generated");
 });
-
+```
 So If we run Above piece of code the first 4 functions will be implemented immediately as __Thread Pool__ By default has 4 threads so the first
 4 functions will be executed immediately and the 5th one will wait until one of the threads is freed up. 
 Also we can increase the Size of thread pooll by setting __process.env.UV_THREADPOOL_SIZE = 2;__ to 2 so only 2 taska will be completed in one go and the other will wait till the one of the thread is free.
@@ -928,17 +958,20 @@ Here we have imported our module http
 and then we have created an instance of our server 
 Then we have done server.listen to make our server listen to incoming requests.
 
+```javascript
 const http = require("http")
 const server = http.createServer();
 server.listen(3000)
+```
 
 So with just above piece of code we have created a Server which listens on Port 3000;
 To to handle the logic of incoming requests on our server. Suppose someone is making a request to homepage of our server so we can 
 handle that with function in our createServer function
+```javascript
 const server = http.createServer((req,res)=>{
 res.end("Hello Requester")
 });
-
+```
 so when someone makes a request on our server we can use __res__ and on our res we have a method __end__ to send the data back
 to the client.
 Inside the __res.end()__ we can pass any info that we want to sent to the client
@@ -951,6 +984,7 @@ and we can also deploy this on our AWS server and using the IP of the server we 
 Here our URL was same so we do not have to do DNS mapping.
 
 We can also add the custom Path in our URL so when some one tries to access that it will show a different Response.
+```javascript
 const http = require("http");
 
 const server = http.createServer(function (req, res) {
@@ -961,6 +995,7 @@ res.end("There is secretData Don't Tell Anyone 🤫")
 });
 
 server.listen(3000);
+```
 
 
 When we create a server using the http module so there are many issues associated with this module. It is kind of like a low level language.
@@ -1174,7 +1209,7 @@ const dbName = "NewDataBase";
 Next we have to create a async function inside which we will use client.connect method to connect to our DataBase.
 This method is a promise so we have to use async keyword before the function name.
 
-
+```javascript
 const client = new MongoClient(url);
 
 const dbName = "NewDataBase";
@@ -1194,14 +1229,16 @@ main()
   .then(console.log)
   .catch(console.error)
   .finally(() => client.close());
-
+```
  once we write tha above code and pass it the correct parameters into to it and run the file we will see "Connected successfully to server" and done.
  If it could not connect to server due to some issue it will throw error and that error will be logged to console.
 
  **Finding the Data**
  so when we have connected to DataBase  we can use .find
+ ```javascript
  const findResult = await collection.find({}).toArray();
   console.log("Found Data =====> "findResult);
+  ```
 
  Now we can also get the data from the Database that we had created manually using find(.find) method on our Collection(Table)
  and then we have to convert that data to Array because If we do just __find__ then it will not return the data beacuse find method is just a 
@@ -1213,7 +1250,7 @@ main()
 We can Also Use insertOne method on our collection to insert the data into our collection.
 
 For eg:
-
+```javascript
  const data = {
     firstName: "Tibbhi",
     lastName: "Titthi",
@@ -1223,17 +1260,17 @@ For eg:
 
   const insertResult = await collection.insertOne(data)
 console.log(insertResult)
-
+```
 So while doing Insert operation we don't have to specify any id as Mongo will automatically create the Id field.
 
 We can also update our document(record) updateOne method available in mongo so like in below example i have used updateOne method on our collection and set the lastName ="Titthi" field to lastName = "BillPoi"
-
+```javascript
  const updateResult = await collection.updateOne(
     { lastName: "Titthi" },
     { $set: { lastName: "BillPoi" } }
   );
   console.log(updateResult);
-
+```
   The __updateOne__ method is coming from our mongodb driver that we have installed in our Project.
 
   We can also use countDocuments method on our collection to get the count of Records on our User Collection.
@@ -1255,7 +1292,8 @@ mongodb is not a native library of node js but it is a native library of mongodb
 
 ## NODE - JS  Practice From Basics
 Created a Node Js Server which listens on port (3000)
-"const http = require("http");
+```javascript
+const http = require("http");
 
 const server = http.createServer((req, res) => {
   if (req.url === "/getData") {
@@ -1266,6 +1304,7 @@ const server = http.createServer((req, res) => {
   }
 });
 server.listen(3000);
+```
 
 Here first installed the node js and imported the built in http module from node and then I Created an http server using __http.createserver()__ method available on http module I created a server and which takes a callBack function with 2 parameters 
 req (request) → contains details about the incoming request (like the URL).
