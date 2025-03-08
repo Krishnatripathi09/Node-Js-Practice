@@ -256,7 +256,7 @@ then we can import it in our App.js file as ***const data = require("./data.json
 and we can do __console.log(data)__ to view the data in the file
 
 # Diving Into the Node JS GitHub Repo :-
-All the code that we write inside a module is firts Wrapped in a function then executed. This is why we cannot access variables or functions outside a function without exporting them.It is not a normal Function it is  IIFE(Immediately invoked function expression) function
+All the code that we write inside a module is first Wrapped in a function then executed. This is why we cannot access variables or functions outside a function without exporting them.It is not a normal Function it is  IIFE(Immediately invoked function expression) function
 for eg:
  (function (){
 
